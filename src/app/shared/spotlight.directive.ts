@@ -2,9 +2,11 @@ import { DestroyRef, Directive, ElementRef, HostListener, inject } from '@angula
 
 @Directive({
   selector: '[appSpotlight]',
+  host: { class: 'card-motion' },
 })
 export class SpotlightDirective {
   private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   private frame = 0;
 
   constructor() {
@@ -13,7 +15,7 @@ export class SpotlightDirective {
 
   @HostListener('pointermove', ['$event'])
   protected onPointerMove(event: PointerEvent): void {
-    if (event.pointerType !== 'mouse') {
+    if (event.pointerType !== 'mouse' || this.reducedMotion.matches) {
       return;
     }
 
@@ -21,9 +23,14 @@ export class SpotlightDirective {
     this.frame = requestAnimationFrame(() => {
       const node = this.element.nativeElement;
       const rect = node.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / Math.max(1, rect.width);
+      const y = (event.clientY - rect.top) / Math.max(1, rect.height);
+
       node.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
       node.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
-      node.style.setProperty('--spot-color', 'rgba(174, 218, 255, 0.15)');
+      node.style.setProperty('--spot-color', 'rgba(174, 218, 255, 0.18)');
+      node.style.setProperty('--tilt-x', `${(0.5 - y) * 4}deg`);
+      node.style.setProperty('--tilt-y', `${(x - 0.5) * 5}deg`);
     });
   }
 
@@ -35,7 +42,10 @@ export class SpotlightDirective {
     }
 
     cancelAnimationFrame(this.frame);
-    this.element.nativeElement.style.setProperty('--spot-color', 'transparent');
+    const node = this.element.nativeElement;
+    node.style.setProperty('--spot-color', 'transparent');
+    node.style.setProperty('--tilt-x', '0deg');
+    node.style.setProperty('--tilt-y', '0deg');
   }
 
   @HostListener('focusin')
@@ -44,5 +54,7 @@ export class SpotlightDirective {
     node.style.setProperty('--spot-x', '50%');
     node.style.setProperty('--spot-y', '35%');
     node.style.setProperty('--spot-color', 'rgba(174, 218, 255, 0.11)');
+    node.style.setProperty('--tilt-x', '0deg');
+    node.style.setProperty('--tilt-y', '0deg');
   }
 }

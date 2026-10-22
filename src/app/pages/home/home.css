@@ -235,7 +235,11 @@
   background: #111e32;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.33);
   filter: grayscale(1) brightness(0.66);
-  transition: filter 0.3s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    filter 300ms ease,
+    transform 500ms var(--ease-out),
+    border-color 300ms var(--ease-out),
+    box-shadow 350ms var(--ease-out);
   outline-offset: 4px;
   will-change: transform, filter;
 }
@@ -245,6 +249,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 500ms var(--ease-out);
 }
 
 .expanding-tile::after {
@@ -265,6 +270,7 @@
 
 .expanding-tile:focus-visible {
   z-index: 2;
+  border-color: rgba(196, 231, 255, 0.6);
   filter: grayscale(0) brightness(1);
 }
 
@@ -275,11 +281,19 @@
 @media (hover: hover) and (pointer: fine) {
   .expanding-tile:hover {
     z-index: 2;
+    border-color: rgba(196, 231, 255, 0.6);
     filter: grayscale(0) brightness(1);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.4),
+      0 0 36px rgba(120, 183, 255, 0.18);
   }
 
   .expanding-tile:hover::after {
     opacity: 1;
+  }
+
+  .expanding-tile:hover img {
+    transform: scale(1.09);
   }
 }
 
@@ -353,8 +367,9 @@
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.19);
   backdrop-filter: blur(24px);
   transition:
+    transform 380ms var(--ease-out),
     border-color 240ms var(--ease-out),
-    box-shadow 240ms var(--ease-out);
+    box-shadow 320ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -454,22 +469,16 @@
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.21), 0 20px 70px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(26px) saturate(150%);
   transition:
+    transform 380ms var(--ease-out),
     border-color 240ms var(--ease-out),
-    transform 240ms var(--ease-out),
-    box-shadow 240ms var(--ease-out);
+    box-shadow 320ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project:hover {
-    transform: translateY(-5px);
     border-color: rgba(197, 228, 255, 0.47);
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.29), 0 25px 80px rgba(115, 173, 245, 0.12);
   }
-}
-
-a.project:active {
-  transform: scale(0.985);
-  transition-duration: 120ms;
 }
 
 .project .visual {
@@ -483,12 +492,12 @@ a.project:active {
   overflow: hidden;
   border: 1px solid #303030;
   border-radius: clamp(13px, 1.5vw, 20px);
-  transition: transform 240ms var(--ease-out);
+  transition: transform 380ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project:hover .visual {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.006);
   }
 }
 
@@ -516,6 +525,13 @@ a.project:active {
   right: 24px;
   bottom: 20px;
   font-size: 28px;
+  transition: transform 350ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project:hover .visual .arrow {
+    transform: translate(5px, -5px);
+  }
 }
 
 .v1 {
@@ -629,18 +645,27 @@ a.project:active {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 22px;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.027) 65%);
+  background:
+    radial-gradient(
+      300px circle at var(--spot-x, 50%) var(--spot-y, 30%),
+      var(--spot-color, transparent),
+      transparent 70%
+    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.027) 65%);
   backdrop-filter: blur(26px) saturate(150%);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.21), 0 20px 70px rgba(0, 0, 0, 0.22);
   transition:
-    border-color 220ms var(--ease-out),
-    transform 220ms var(--ease-out);
+    transform 380ms var(--ease-out),
+    border-color 240ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .experience-card:hover {
-    border-color: #777;
-    transform: translateY(-2px);
+    border-color: rgba(178, 216, 250, 0.46);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, 0.26),
+      0 28px 80px rgba(115, 173, 245, 0.13);
   }
 }
 
@@ -733,14 +758,13 @@ a.project:active {
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.21), 0 20px 70px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(26px) saturate(150%);
   transition:
+    transform 380ms var(--ease-out),
     border-color 240ms var(--ease-out),
-    transform 240ms var(--ease-out),
-    box-shadow 240ms var(--ease-out);
+    box-shadow 320ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .service:hover {
-    transform: translateY(-5px);
     border-color: rgba(197, 228, 255, 0.47);
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.29), 0 25px 80px rgba(115, 173, 245, 0.12);
   }
@@ -809,7 +833,13 @@ a.project:active {
 .faq-item {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.086), rgba(255, 255, 255, 0.031) 50%, rgba(177, 216, 255, 0.035));
+  background:
+    radial-gradient(
+      280px circle at var(--spot-x, 50%) var(--spot-y, 35%),
+      var(--spot-color, transparent),
+      transparent 70%
+    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.086), rgba(255, 255, 255, 0.031) 50%, rgba(177, 216, 255, 0.035));
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.17), 0 15px 48px rgba(0, 0, 0, 0.13);
   backdrop-filter: blur(18px);
 }
@@ -837,6 +867,16 @@ a.project:active {
   place-items: center;
   color: #c8e6ff;
   font: 400 40px 'Space Grotesk', sans-serif;
+  transition:
+    transform 450ms var(--ease-out),
+    color 300ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glass-feature:hover .feature-glyph {
+    transform: translateY(-6px) scale(1.06);
+    color: #eef8ff;
+  }
 }
 
 .glass-feature h3,
@@ -917,6 +957,13 @@ a.project:active {
 .principle-icon {
   color: #accdff;
   font-size: 24px;
+  transition: transform 350ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-motion:hover .principle-icon {
+    transform: translate(4px, -4px);
+  }
 }
 
 .faq-list {
@@ -1272,10 +1319,11 @@ a.project:active {
   }
 
   .github-preview:hover > img,
-  .project:hover,
   .project:hover .visual,
-  .service:hover,
-  .experience-card:hover {
+  .project:hover .visual .arrow,
+  .expanding-tile:hover img,
+  .glass-feature:hover .feature-glyph,
+  .card-motion:hover .principle-icon {
     transform: none;
   }
 }

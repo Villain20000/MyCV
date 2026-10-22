@@ -244,12 +244,19 @@
   height: 100%;
   object-fit: cover;
   filter: saturate(0.8);
-  transition: transform 450ms var(--ease-out);
+  transition:
+    transform 650ms var(--ease-out),
+    filter 420ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .photo-grid figure:hover img {
-    transform: scale(1.03);
+    transform: scale(1.06);
+    filter: saturate(1);
+  }
+
+  .photo-grid figure:hover figcaption {
+    transform: translateY(-4px);
   }
 }
 
@@ -264,6 +271,7 @@
   background: rgba(8, 23, 37, 0.73);
   backdrop-filter: blur(16px);
   font-size: 13px;
+  transition: transform 380ms var(--ease-out);
 }
 
 .workflow {
@@ -355,8 +363,13 @@
   .btn,
   .btn:hover,
   .btn:active,
-  .photo-grid figure:hover img {
+  .photo-grid figure:hover img,
+  .photo-grid figure:hover figcaption {
     transform: none;
+  }
+
+  .photo-grid img {
+    transition: filter 420ms var(--ease-out);
   }
 }
 

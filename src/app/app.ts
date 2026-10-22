@@ -3,6 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { RevealService } from './core/reveal.service';
+import { ScrollMotionService } from './core/scroll-motion.service';
 import { SiteFooter } from './shared/site-footer/site-footer';
 import { SiteHeader } from './shared/site-header/site-header';
 
@@ -22,6 +23,7 @@ export class App {
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   private readonly reveal = inject(RevealService);
+  private readonly scrollMotion = inject(ScrollMotionService);
 
   constructor() {
     this.router.events
@@ -47,5 +49,6 @@ export class App {
     this.meta.updateTag({ property: 'og:title', content: pageTitle });
 
     this.reveal.scan();
+    this.scrollMotion.revealPage();
   }
 }

@@ -235,7 +235,7 @@
         <div class="experience-progress" #experienceProgress></div>
       </div>
       <div class="experience-items">
-        <article class="experience-card reveal">
+        <article class="experience-card reveal" appSpotlight>
           <span class="experience-index">01 / HEALTH TECHNOLOGY</span>
           <h3>Metabio</h3>
           <div class="experience-role">Full Stack Software Engineer · 2024–Present</div>
@@ -252,7 +252,7 @@
           <p><a routerLink="/healthtech">Explore HealthTech experience ↗</a></p>
         </article>
 
-        <article class="experience-card reveal">
+        <article class="experience-card reveal" appSpotlight>
           <span class="experience-index">02 / E-COMMERCE &amp; LOGISTICS</span>
           <h3>Cactus Web</h3>
           <div class="experience-role">Full Stack Developer · 2023</div>
@@ -268,7 +268,7 @@
           </div>
         </article>
 
-        <article class="experience-card reveal">
+        <article class="experience-card reveal" appSpotlight>
           <span class="experience-index">03 / SAAS &amp; ERP</span>
           <h3>Softexpert</h3>
           <div class="experience-role">Full Stack Developer · 2018–2023</div>
@@ -286,7 +286,7 @@
           </div>
         </article>
 
-        <article class="experience-card reveal">
+        <article class="experience-card reveal" appSpotlight>
           <span class="experience-index">04 / INDEPENDENT ENGINEERING</span>
           <h3>Selected Projects</h3>
           <div class="experience-role">Full Stack Developer · Product Engineering</div>
@@ -358,7 +358,7 @@
     </div>
     <div class="glass-feature-grid">
       @for (step of processSteps; track step.number) {
-        <article class="glass-feature reveal">
+        <article class="glass-feature reveal" appSpotlight>
           <span class="feature-number">{{ step.number }}</span>
           <span aria-hidden="true" class="feature-glyph">{{ step.glyph }}</span>
           <h3>{{ step.title }}</h3>
@@ -381,7 +381,7 @@
     </div>
     <div class="stack-layout">
       @for (panel of stackPanels; track panel.label) {
-        <div class="stack-panel reveal">
+        <div class="stack-panel reveal" appSpotlight>
           <span>{{ panel.label }}</span>
           <h3>{{ panel.title }}</h3>
           <div class="tech-cloud">
@@ -407,7 +407,7 @@
     </div>
     <div class="principles-list">
       @for (principle of principles; track principle.index) {
-        <article class="principle-row reveal">
+        <article class="principle-row reveal" appSpotlight>
           <span>{{ principle.index }}</span>
           <h3>{{ principle.title }}</h3>
           <p>{{ principle.description }}</p>
@@ -428,28 +428,28 @@
       </p>
     </div>
     <div class="faq-list">
-      <details class="faq-item reveal">
+      <details class="faq-item reveal" appSpotlight>
         <summary>What kind of projects do you work on?<span>+</span></summary>
         <p>
           Full-stack web platforms, custom e-commerce, website-building tools and data-heavy
           workflows, including healthcare and biobanking applications.
         </p>
       </details>
-      <details class="faq-item reveal">
+      <details class="faq-item reveal" appSpotlight>
         <summary>What is your main frontend framework?<span>+</span></summary>
         <p>
           Angular is a central part of my frontend work, alongside TypeScript, modern CSS and web
           platform fundamentals.
         </p>
       </details>
-      <details class="faq-item reveal">
+      <details class="faq-item reveal" appSpotlight>
         <summary>Do you also work on backend systems?<span>+</span></summary>
         <p>
           Yes. My experience includes PHP development and work with Node.js, Express, Prisma and
           API-driven applications.
         </p>
       </details>
-      <details class="faq-item reveal">
+      <details class="faq-item reveal" appSpotlight>
         <summary>Where can I see your code?<span>+</span></summary>
         <p>
           Explore my public projects on
