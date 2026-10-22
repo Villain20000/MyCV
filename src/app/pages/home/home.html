@@ -1,0 +1,486 @@
+<main id="main-content" tabindex="-1" class="home-page">
+  <section class="hero wrap">
+    <div class="eyebrow">Full-stack developer / Selected work</div>
+    <h1>Building digital<br>experiences<br>that work<span class="hero-dot">.</span></h1>
+    <p>
+      Full-stack developer specializing in Angular, TypeScript, PHP and scalable web applications
+      — from custom e-commerce platforms to complex HealthTech and SaaS systems.
+    </p>
+    <div class="hero-bottom">
+      <span>Scroll to explore ↓</span>
+      <span>Engineering × Experience</span>
+    </div>
+  </section>
+
+  <app-tech-marquee [items]="marqueeItems" />
+
+  <section
+    class="luminous-section"
+    id="philosophy"
+    tabindex="0"
+    aria-label="Interactive luminous typography"
+    (pointermove)="onLuminousMove($event)"
+    (pointerleave)="onLuminousLeave()"
+    (focus)="onLuminousFocus()"
+    (blur)="onLuminousBlur()"
+  >
+    <div class="luminous-inner">
+      <h2 class="luminous-title">Thoughtful code.<br>Meaningful experiences.<br>Built to make an impact.</h2>
+      <h2 aria-hidden="true" class="luminous-title luminous-lit" #luminousLit>
+        Thoughtful code.<br>Meaningful experiences.<br>Built to make an impact.
+      </h2>
+    </div>
+    <span class="luminous-hint">Move your cursor · Scroll to reveal</span>
+  </section>
+
+  <section class="expanding-showcase" id="visual-lab">
+    <div class="expanding-heading reveal">
+      <div class="eyebrow">02 / Digital craft</div>
+      <h2>Expanding<br>possibilities.</h2>
+      <p>
+        An interactive visual mosaic of the tools, people and environments behind modern web
+        development. Hover or focus to explore.
+      </p>
+    </div>
+    <div class="expanding-viewport">
+      <div class="expanding-grid" #tileGrid>
+        @for (tile of tiles; track tile.id) {
+          <a
+            class="expanding-tile"
+            href="#work"
+            [attr.aria-label]="'View projects: ' + tile.label"
+            [attr.data-label]="tile.label"
+            [style.--tile-size]="tile.width"
+            [style.--tile-height]="tile.height"
+            (pointerenter)="onTileEnter($event, tileEl)"
+            (pointerleave)="onTileLeave()"
+            (focus)="onTileEnter($event, tileEl)"
+            (blur)="onTileLeave()"
+            #tileEl
+          >
+            <img
+              [src]="tile.image"
+              [alt]="tile.label"
+              width="640"
+              height="500"
+              loading="lazy"
+              decoding="async"
+            >
+          </a>
+        }
+      </div>
+    </div>
+    <div class="expanding-footnote">HOVER TO EXPLORE · SCROLL HORIZONTALLY ON MOBILE</div>
+  </section>
+
+  <section class="section wrap github-showcase" aria-labelledby="github-showcase-title">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">OPEN SOURCE &amp; PRODUCT WORK</div>
+        <h2 id="github-showcase-title">Built, not just<br>imagined.</h2>
+      </div>
+      <p class="section-intro">
+        Selected interface screenshots from two applications. Explore the code where a verified
+        repository is available.
+      </p>
+    </div>
+    <div class="github-preview-grid">
+      <article class="github-preview reveal beam" appSpotlight>
+        <img
+          src="assets/direct-democracy-screenshot.webp"
+          alt="Screenshot of Direct Democracy Mayor Dashboard"
+          width="1440"
+          height="900"
+          loading="lazy"
+        >
+        <div class="github-preview-meta">
+          <div>
+            <span>01 / CivicTech</span>
+            <h3>Direct Democracy</h3>
+          </div>
+          <a
+            href="https://github.com/Villain20000/Direct-Democracy-Municipal-Feedback-Issue-Tracker"
+            target="_blank"
+            rel="noopener noreferrer"
+          >GitHub ↗</a>
+        </div>
+      </article>
+      <article class="github-preview reveal" appSpotlight>
+        <img
+          src="assets/nomosai-screenshot.webp"
+          alt="Screenshot of Greek-language NomosAI legal assistant"
+          width="1440"
+          height="1500"
+          loading="lazy"
+        >
+        <div class="github-preview-meta">
+          <div>
+            <span>02 / LegalTech</span>
+            <h3>NomosAI</h3>
+          </div>
+          <span class="repo-placeholder">GitHub link pending</span>
+        </div>
+      </article>
+    </div>
+    <a class="github-all-link" routerLink="/projects">Explore all projects ↗</a>
+  </section>
+
+  <section class="section wrap" id="work">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">01 / Portfolio</div>
+        <h2>Selected<br>work.</h2>
+      </div>
+      <p class="section-intro">
+        A selection of professional development work and independent software projects, built
+        around real-world workflows and modern web technologies.
+      </p>
+    </div>
+    <div class="projects">
+      <a
+        class="project reveal"
+        appSpotlight
+        href="https://mysitenow.gr/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="visual v1">
+          <small>( 001 ) / WEB PLATFORM</small>
+          <span>MySiteNow<span class="soft-dot">.</span></span>
+          <span class="arrow">↗</span>
+        </div>
+        <div class="meta">
+          <span>Angular Website Builder</span>
+          <span>Professional work</span>
+        </div>
+        <h3>MySiteNow</h3>
+        <p>Contributed to the Angular website builder and its connected public website.</p>
+      </a>
+
+      <a
+        class="project reveal"
+        appSpotlight
+        href="https://github.com/Villain20000/Direct-Democracy-Municipal-Feedback-Issue-Tracker"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="visual v2">
+          <small>( 002 ) / FULL-STACK APPLICATION</small>
+          <span>Direct<br>Democracy</span>
+          <span class="arrow">↗</span>
+        </div>
+        <div class="meta">
+          <span>Angular / Express / Prisma</span>
+          <span>GitHub project</span>
+        </div>
+        <h3>Municipal Feedback Platform</h3>
+        <p>
+          Full-stack civic engagement and issue-tracking platform with backend workflows and
+          modern infrastructure.
+        </p>
+      </a>
+
+      <a
+        class="project reveal"
+        appSpotlight
+        routerLink="/healthtech"
+        aria-label="Explore HealthTech case study"
+      >
+        <div class="visual v3">
+          <small>( 003 ) / HEALTHTECH</small>
+          <span>HealthTech<br>&amp; Biobanking</span>
+        </div>
+        <div class="meta">
+          <span>Clinical data / Angular / Python</span>
+          <span>Professional work</span>
+        </div>
+        <h3>Metabio Platform ↗</h3>
+        <p>
+          Patient management, advanced search, eConsent, access controls, biospecimen traceability
+          and clinical-data workflows.
+        </p>
+      </a>
+
+      <div class="project reveal" appSpotlight>
+        <div class="visual v4">
+          <small>( 004 ) / E-COMMERCE</small>
+          <span>Custom<br>Commerce</span>
+        </div>
+        <div class="meta">
+          <span>PHP / Angular</span>
+          <span>Professional work</span>
+        </div>
+        <h3>Custom E-commerce Solutions</h3>
+        <p>Development of tailored e-commerce experiences and business-specific functionality.</p>
+      </div>
+    </div>
+    <p class="projects-link">
+      <a class="link-arrow" routerLink="/projects">View all projects on a dedicated page ↗</a>
+    </p>
+  </section>
+
+  <section class="experience-chapter" id="experience" aria-labelledby="experience-title">
+    <div class="experience-header reveal">
+      <div>
+        <div class="eyebrow">03 / Career journey</div>
+        <h2 id="experience-title">Experience<span class="soft-dot">.</span></h2>
+      </div>
+      <p>
+        Building real products, from custom storefronts to complex platforms and data-driven
+        applications.
+      </p>
+    </div>
+    <div class="experience-layout">
+      <div aria-hidden="true" class="experience-rail">
+        <div class="experience-progress" #experienceProgress></div>
+      </div>
+      <div class="experience-items">
+        <article class="experience-card reveal">
+          <span class="experience-index">01 / HEALTH TECHNOLOGY</span>
+          <h3>Metabio</h3>
+          <div class="experience-role">Full Stack Software Engineer · 2024–Present</div>
+          <p>
+            Leading Angular frontend redesign and end-to-end features across patient management,
+            eConsent, specimen access and biospecimen traceability.
+          </p>
+          <div class="experience-pills">
+            <span>Angular</span>
+            <span>Node.js</span>
+            <span>HealthTech</span>
+            <span>eConsent</span>
+          </div>
+          <p><a routerLink="/healthtech">Explore HealthTech experience ↗</a></p>
+        </article>
+
+        <article class="experience-card reveal">
+          <span class="experience-index">02 / E-COMMERCE &amp; LOGISTICS</span>
+          <h3>Cactus Web</h3>
+          <div class="experience-role">Full Stack Developer · 2023</div>
+          <p>
+            Built custom e-commerce storefronts, checkout and payment flows with PHP and Angular,
+            and contributed to Logistis, a shipping and logistics SaaS.
+          </p>
+          <div class="experience-pills">
+            <span>PHP</span>
+            <span>Angular</span>
+            <span>E-commerce</span>
+            <span>Payments</span>
+          </div>
+        </article>
+
+        <article class="experience-card reveal">
+          <span class="experience-index">03 / SAAS &amp; ERP</span>
+          <h3>Softexpert</h3>
+          <div class="experience-role">Full Stack Developer · 2018–2023</div>
+          <p>
+            Contributed to the
+            <a href="https://mysitenow.gr/" target="_blank" rel="noopener noreferrer">MySiteNow</a>
+            Angular website builder and its public integration, plus ERP and custom e-commerce
+            work for client projects.
+          </p>
+          <div class="experience-pills">
+            <span>Angular</span>
+            <span>PHP</span>
+            <span>SaaS</span>
+            <span>ERP</span>
+          </div>
+        </article>
+
+        <article class="experience-card reveal">
+          <span class="experience-index">04 / INDEPENDENT ENGINEERING</span>
+          <h3>Selected Projects</h3>
+          <div class="experience-role">Full Stack Developer · Product Engineering</div>
+          <p>
+            Independent platforms spanning civic issue reporting, Greek legal AI and
+            property-management SaaS, built end to end with Angular, Node.js and PostgreSQL.
+          </p>
+          <div class="experience-pills">
+            <span>Angular</span>
+            <span>NestJS</span>
+            <span>PostgreSQL</span>
+            <span>AI / RAG</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="expertise">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">02 / What I do</div>
+        <h2>Technical<br>expertise.</h2>
+      </div>
+      <p class="section-intro">
+        Connecting frontend craftsmanship with robust backend architecture and practical product
+        thinking.
+      </p>
+    </div>
+    @for (service of services; track service.index) {
+      <div class="service reveal" appSpotlight>
+        <span class="num">{{ service.index }}</span>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+      </div>
+    }
+  </section>
+
+  <section class="section wrap" id="about">
+    <div class="eyebrow">03 / About me</div>
+    <div class="about reveal">
+      <h2>Code with<br>purpose.</h2>
+      <div>
+        <p>
+          I develop web applications that bring together usability, business needs and technical
+          reliability. My work spans Angular website-building tools, custom PHP and Angular
+          e-commerce solutions, and complex HealthTech platforms involving clinical data and
+          biospecimen workflows.
+        </p>
+        <div class="tags">
+          @for (tag of tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="premium-extra section wrap" id="process">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">04 / How I work</div>
+        <h2>From idea<br>to impact.</h2>
+      </div>
+      <p class="section-intro">
+        An intentional engineering process that balances product needs, maintainability, and
+        polish.
+      </p>
+    </div>
+    <div class="glass-feature-grid">
+      @for (step of processSteps; track step.number) {
+        <article class="glass-feature reveal">
+          <span class="feature-number">{{ step.number }}</span>
+          <span aria-hidden="true" class="feature-glyph">{{ step.glyph }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="premium-extra section wrap" id="stack">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">05 / Technology</div>
+        <h2>Tools of<br>the trade.</h2>
+      </div>
+      <p class="section-intro">
+        A practical mix of frontend engineering, backend development and product-focused
+        implementation.
+      </p>
+    </div>
+    <div class="stack-layout">
+      @for (panel of stackPanels; track panel.label) {
+        <div class="stack-panel reveal">
+          <span>{{ panel.label }}</span>
+          <h3>{{ panel.title }}</h3>
+          <div class="tech-cloud">
+            @for (tool of panel.tools; track tool) {
+              <b>{{ tool }}</b>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="premium-extra section wrap" id="principles">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">06 / Engineering mindset</div>
+        <h2>Built with<br>intention.</h2>
+      </div>
+      <p class="section-intro">
+        Good software is more than a visual interface. It should be understandable, robust, and
+        genuinely useful.
+      </p>
+    </div>
+    <div class="principles-list">
+      @for (principle of principles; track principle.index) {
+        <article class="principle-row reveal">
+          <span>{{ principle.index }}</span>
+          <h3>{{ principle.title }}</h3>
+          <p>{{ principle.description }}</p>
+          <span aria-hidden="true" class="principle-icon">↗</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="premium-extra section wrap" id="faq">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">07 / Quick answers</div>
+        <h2>Good to<br>know.</h2>
+      </div>
+      <p class="section-intro">
+        A few useful details about my focus and the kind of work represented here.
+      </p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>What kind of projects do you work on?<span>+</span></summary>
+        <p>
+          Full-stack web platforms, custom e-commerce, website-building tools and data-heavy
+          workflows, including healthcare and biobanking applications.
+        </p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What is your main frontend framework?<span>+</span></summary>
+        <p>
+          Angular is a central part of my frontend work, alongside TypeScript, modern CSS and web
+          platform fundamentals.
+        </p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Do you also work on backend systems?<span>+</span></summary>
+        <p>
+          Yes. My experience includes PHP development and work with Node.js, Express, Prisma and
+          API-driven applications.
+        </p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Where can I see your code?<span>+</span></summary>
+        <p>
+          Explore my public projects on
+          <a href="https://github.com/Villain20000" target="_blank" rel="noopener noreferrer">GitHub ↗</a>,
+          including the Municipal Feedback and Issue Tracker project.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <section class="contact wrap" id="contact">
+    <div class="eyebrow">04 / Get in touch</div>
+    <h2>
+      Let's build<br>something<br><span class="shimmer-text contact-shimmer">great</span><span
+        class="soft-dot">.</span>
+    </h2>
+    <a class="cta" appMagnetic href="mailto:john89skg@gmail.com">Email me ↗</a>
+    <div class="contact-links">
+      <a
+        href="https://www.linkedin.com/in/ioannis-ioannidis"
+        target="_blank"
+        rel="noopener noreferrer"
+      >LinkedIn ↗</a>
+      <a
+        href="https://github.com/Villain20000"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub ↗</a>
+    </div>
+  </section>
+</main>
+
+<div aria-hidden="true" class="glass-orb"></div>
+<div aria-hidden="true" class="scroll-track"><div class="scroll-bar" #scrollBar></div></div>

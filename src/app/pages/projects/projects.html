@@ -1,0 +1,83 @@
+<main id="main-content" tabindex="-1" class="page-shell page-stack">
+  <section class="page-hero page-fade">
+    <div class="page-eyebrow">01 / SELECTED WORK</div>
+    <h1>Projects that<br>solve problems.</h1>
+    <p>
+      A selection of platforms, client work and engineering projects spanning e-commerce, website
+      building, civic technology and healthcare.
+    </p>
+  </section>
+
+  <app-tech-marquee [items]="marqueeItems" />
+
+  <section class="glass-section">
+    <div class="glass-grid">
+      @for (project of projects; track project.title) {
+        <article
+          class="glass-card page-fade"
+          appSpotlight
+          [class.github-feature]="project.screenshot"
+          [class.beam]="project.featured"
+        >
+          @if (project.imageLink) {
+            <a
+              class="screenshot-link"
+              [href]="project.imageLink"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'View ' + project.title + ' repository'"
+            >
+              <div class="project-cover screenshot-cover" [class.nomos-cover]="project.nomos">
+                <img
+                  [src]="project.image"
+                  [alt]="project.alt"
+                  width="1440"
+                  height="900"
+                  loading="lazy"
+                >
+              </div>
+            </a>
+          } @else {
+            <div class="project-cover" [class.screenshot-cover]="project.screenshot" [class.nomos-cover]="project.nomos">
+              <img
+                [src]="project.image"
+                [alt]="project.alt"
+                [width]="project.screenshot ? 1440 : 680"
+                [height]="project.screenshot ? 900 : 400"
+                loading="lazy"
+              >
+            </div>
+          }
+
+          <span class="micro">{{ project.micro }}</span>
+          <h2>{{ project.title }}</h2>
+          <p>{{ project.description }}</p>
+          <div class="chip-list">
+            @for (chip of project.chips; track chip) {
+              <span>{{ chip }}</span>
+            }
+          </div>
+
+          @if (project.action; as action) {
+            @if (action.route) {
+              <a class="link-arrow" [routerLink]="action.route">{{ action.label }}</a>
+            } @else {
+              <a
+                class="link-arrow"
+                [href]="action.href"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{ action.label }}</a>
+            }
+          }
+
+          @if (project.placeholder) {
+            <span class="repo-placeholder" aria-label="GitHub repository link not yet provided">
+              {{ project.placeholder }}
+            </span>
+          }
+        </article>
+      }
+    </div>
+  </section>
+</main>

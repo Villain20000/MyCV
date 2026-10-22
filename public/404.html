@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirecting — Developer Portfolio</title>
+    <script>
+      (function (location) {
+        var base = location.pathname.split('/').slice(0, 2).join('/');
+        var route = location.pathname
+          .split('/')
+          .slice(2)
+          .join('/')
+          .replace(/&/g, '~and~');
+        var query = location.search ? '&' + location.search.slice(1).replace(/&/g, '~and~') : '';
+        location.replace(base + '/?/' + route + query + location.hash);
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/MyCV/">the portfolio</a>…</p>
+  </body>
+</html>

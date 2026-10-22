@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Full-Stack Developer — Portfolio</title>
+    <base href="/">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    >
+    <meta name="theme-color" content="#080d17">
+    <meta
+      name="description"
+      content="Portfolio of a full-stack developer specializing in Angular, TypeScript, PHP and scalable web applications."
+    >
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <script>
+      (function (location) {
+        if (location.search.charAt(0) === '?' && location.search.charAt(1) === '/') {
+          var route = location.search
+            .slice(1)
+            .split('&')
+            .map(function (part) {
+              return part.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, '', location.pathname.slice(0, -1) + route + location.hash);
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
