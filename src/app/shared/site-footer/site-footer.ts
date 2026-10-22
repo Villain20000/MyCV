@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
       <div class="footer-links">
         <a href="mailto:john89skg@gmail.com">Email ↗</a>
         <a
-          href="https://www.linkedin.com/in/ioannis-ioannidis"
+          href="https://www.linkedin.com/in/ioannis-ioannidis-a18875156/"
           target="_blank"
           rel="noopener noreferrer"
         >LinkedIn ↗</a>
