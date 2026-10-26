@@ -17,7 +17,21 @@
           <a class="contact-email" href="mailto:john89skg@gmail.com">john89skg@gmail.com</a>
           — best for roles, projects and detailed conversations.
         </p>
-        <a class="link-arrow" href="mailto:john89skg@gmail.com">Email me ↗</a>
+        <div class="contact-card-actions">
+          <a class="link-arrow" href="mailto:john89skg@gmail.com">Email me <span class="arrow-cue" aria-hidden="true">↗</span></a>
+          <button
+            type="button"
+            class="action-pill-btn"
+            aria-label="Copy email address"
+            (click)="copyEmail()"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          </button>
+        </div>
       </article>
 
       <article class="glass-card page-fade" appSpotlight>
@@ -29,7 +43,7 @@
           href="https://www.linkedin.com/in/ioannis-ioannidis-a18875156/"
           target="_blank"
           rel="noopener noreferrer"
-        >View LinkedIn ↗</a>
+        >View LinkedIn <span class="arrow-cue" aria-hidden="true">↗</span></a>
       </article>
 
       <article class="glass-card page-fade" appSpotlight>
@@ -41,14 +55,14 @@
           href="https://github.com/Villain20000"
           target="_blank"
           rel="noopener noreferrer"
-        >Visit GitHub ↗</a>
+        >Visit GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
       </article>
 
       <article class="glass-card page-fade" appSpotlight>
         <span class="micro">Portfolio</span>
         <h2>Explore what I build.</h2>
         <p>Browse selected professional and independent development projects.</p>
-        <a class="link-arrow" routerLink="/projects">Selected work ↗</a>
+        <a class="link-arrow" routerLink="/projects">Selected work <span class="arrow-cue" aria-hidden="true">↗</span></a>
       </article>
     </div>
   </section>

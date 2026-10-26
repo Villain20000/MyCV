@@ -46,10 +46,11 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
     .marquee-item {
       padding-inline: clamp(18px, 2.4vw, 36px);
-      color: rgba(226, 238, 252, 0.75);
+      color: rgba(226, 238, 252, 0.72);
       font: 500 clamp(17px, 2.1vw, 29px) / 1 'Space Grotesk', sans-serif;
       letter-spacing: -0.035em;
       white-space: nowrap;
+      transition: color 180ms cubic-bezier(0.16, 1, 0.3, 1), text-shadow 180ms ease, transform 180ms ease;
     }
 
     .marquee-sep {
@@ -61,6 +62,12 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     @media (hover: hover) and (pointer: fine) {
       .marquee:hover .marquee-track {
         animation-play-state: paused;
+      }
+
+      .marquee-item:hover {
+        color: #ffffff;
+        text-shadow: 0 0 18px rgba(147, 197, 253, 0.45);
+        transform: translateY(-1px);
       }
     }
 

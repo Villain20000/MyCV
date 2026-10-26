@@ -6,6 +6,7 @@ import { RevealService } from './core/reveal.service';
 import { ScrollMotionService } from './core/scroll-motion.service';
 import { SiteFooter } from './shared/site-footer/site-footer';
 import { SiteHeader } from './shared/site-header/site-header';
+import { Toast } from './shared/toast/toast';
 
 interface PageMeta {
   title?: string;
@@ -14,7 +15,7 @@ interface PageMeta {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SiteHeader, SiteFooter],
+  imports: [RouterOutlet, SiteHeader, SiteFooter, Toast],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

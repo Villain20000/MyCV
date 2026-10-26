@@ -58,18 +58,39 @@
             }
           </div>
 
-          @if (project.action; as action) {
-            @if (action.route) {
-              <a class="link-arrow" [routerLink]="action.route">{{ action.label }}</a>
-            } @else {
-              <a
-                class="link-arrow"
-                [href]="action.href"
-                target="_blank"
-                rel="noopener noreferrer"
-              >{{ action.label }}</a>
+          <div class="project-card-footer">
+            @if (project.action; as action) {
+              @if (action.route) {
+                <a class="link-arrow" [routerLink]="action.route">
+                  <span>{{ action.label.replace(' ↗', '') }}</span>
+                  <span class="arrow-cue" aria-hidden="true">↗</span>
+                </a>
+              } @else {
+                <a
+                  class="link-arrow"
+                  [href]="action.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{{ action.label.replace(' ↗', '') }}</span>
+                  <span class="arrow-cue" aria-hidden="true">↗</span>
+                </a>
+              }
             }
-          }
+
+            <button
+              type="button"
+              class="action-pill-btn project-quick-btn"
+              aria-label="Open project quick preview"
+              (click)="openProject(project)"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Quick View</span>
+            </button>
+          </div>
 
           @if (project.placeholder) {
             <span class="repo-placeholder" aria-label="GitHub repository link not yet provided">
@@ -80,4 +101,57 @@
       }
     </div>
   </section>
+
+  @if (activeProject(); as proj) {
+    <div class="project-modal-backdrop" (click)="closeProject()" aria-hidden="true"></div>
+    <div
+      class="project-modal"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="proj.title + ' details'"
+    >
+      <div class="project-modal-header">
+        <span class="micro">{{ proj.micro }}</span>
+        <button
+          type="button"
+          class="modal-close-btn"
+          aria-label="Close dialog"
+          (click)="closeProject()"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="project-modal-media">
+        <img [src]="proj.image" [alt]="proj.alt" loading="lazy">
+      </div>
+
+      <h2>{{ proj.title }}</h2>
+      <p class="modal-summary">{{ proj.description }}</p>
+
+      <div class="chip-list">
+        @for (chip of proj.chips; track chip) {
+          <span>{{ chip }}</span>
+        }
+      </div>
+
+      <div class="project-modal-actions">
+        @if (proj.action; as action) {
+          @if (action.route) {
+            <a class="cta" [routerLink]="action.route" (click)="closeProject()">
+              {{ action.label }}
+            </a>
+          } @else {
+            <a class="cta" [href]="action.href" target="_blank" rel="noopener noreferrer">
+              {{ action.label }}
+            </a>
+          }
+        }
+        <button type="button" class="action-pill-btn" (click)="closeProject()">Done</button>
+      </div>
+    </div>
+  }
 </main>

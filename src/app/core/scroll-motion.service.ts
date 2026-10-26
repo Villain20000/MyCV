@@ -14,7 +14,7 @@ const HEADING_SELECTOR = [
   '.end h2',
 ].join(', ');
 
-const IMAGE_SELECTOR = 'main img';
+const IMAGE_SELECTOR = 'main img:not(.hero-media img):not(.expanding-tile img)';
 
 @Injectable({ providedIn: 'root' })
 export class ScrollMotionService {
@@ -104,18 +104,19 @@ export class ScrollMotionService {
         return;
       }
 
-      gsap.set(images, { clipPath: 'inset(0 0 100% 0)' });
+      gsap.set(images, { clipPath: 'inset(0 0 100% 0)', scale: 1.04 });
       ScrollTrigger.batch(images, {
         start: 'top 92%',
         once: true,
         onEnter: (batch) => {
           gsap.to(batch, {
             clipPath: 'inset(0 0 0% 0)',
-            duration: 1.1,
+            scale: 1,
+            duration: 1.05,
             ease: 'power3.out',
             stagger: 0.08,
             overwrite: true,
-            onComplete: () => gsap.set(batch, { clearProps: 'clipPath' }),
+            onComplete: () => gsap.set(batch, { clearProps: 'clipPath,scale' }),
           });
         },
       });

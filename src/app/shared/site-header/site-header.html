@@ -19,7 +19,7 @@
     href="https://github.com/Villain20000"
     target="_blank"
     rel="noopener noreferrer"
-  >GitHub <span aria-hidden="true">↗</span></a>
+  >GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
 
   <button
     class="mobile-menu-btn"
@@ -34,6 +34,10 @@
   </button>
 </header>
 
+@if (menuOpen()) {
+  <div class="mobile-nav-backdrop" (click)="closeMenu()" aria-hidden="true"></div>
+}
+
 <nav
   class="mobile-nav"
   id="mobileMenu"
@@ -41,11 +45,20 @@
   [class.open]="menuOpen()"
   [attr.inert]="menuOpen() ? null : ''"
 >
-  @for (link of links; track link.path) {
-    <a
-      [routerLink]="link.path"
-      [attr.aria-current]="isActive(link.path) ? 'page' : null"
-      (click)="closeMenu()"
-    >{{ link.mobileLabel }}</a>
-  }
+  <div class="mobile-nav-header">
+    <span class="mobile-nav-title">Menu</span>
+    <span class="mobile-nav-hint">Select a destination</span>
+  </div>
+  <div class="mobile-nav-links">
+    @for (link of links; track link.path) {
+      <a
+        [routerLink]="link.path"
+        [attr.aria-current]="isActive(link.path) ? 'page' : null"
+        (click)="closeMenu()"
+      >
+        <span>{{ link.mobileLabel }}</span>
+        <span class="mobile-arrow" aria-hidden="true">↗</span>
+      </a>
+    }
+  </div>
 </nav>

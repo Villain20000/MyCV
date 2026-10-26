@@ -8,16 +8,27 @@ import {
   inject,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { gsap } from 'gsap';
 import { MagneticDirective } from '../../shared/magnetic.directive';
 import { SpotlightDirective } from '../../shared/spotlight.directive';
 import { TechMarquee } from '../../shared/tech-marquee/tech-marquee';
+import { ToastService } from '../../shared/toast/toast.service';
 
-interface Tile {
-  id: string;
-  label: string;
-  image: string;
-  width: string;
-  height: string;
+export interface CapabilityTile {
+  readonly id: string;
+  readonly label: string;
+  readonly category: 'frontend' | 'backend' | 'healthtech' | 'devops';
+  readonly categoryLabel: string;
+  readonly image: string;
+  readonly tagline: string;
+  readonly chips: readonly string[];
+  readonly link?: { readonly label: string; readonly url?: string; readonly route?: string };
+}
+
+export interface CategoryFilter {
+  readonly id: 'all' | 'frontend' | 'backend' | 'healthtech' | 'devops';
+  readonly label: string;
+  readonly count: number;
 }
 
 interface Service {
@@ -45,19 +56,142 @@ interface Principle {
   description: string;
 }
 
-const TILE_PATTERN = [
-  { label: 'Angular UI', image: 'assets/dev-01.svg', width: '45%', height: '48%' },
-  { label: 'API Engineering', image: 'assets/dev-02.svg', width: '65%', height: '80%' },
-  { label: 'TypeScript', image: 'assets/dev-03.svg', width: '95%', height: '115%' },
-  { label: 'Data Systems', image: 'assets/dev-04.svg', width: '83%', height: '105%' },
-  { label: 'Cloud Delivery', image: 'assets/dev-05.svg', width: '62%', height: '76%' },
-  { label: 'Clean Code', image: 'assets/dev-06.svg', width: '48%', height: '53%' },
-  { label: 'Design Systems', image: 'assets/dev-07.svg', width: '40%', height: '43%' },
-  { label: 'Automation', image: 'assets/dev-08.svg', width: '38%', height: '40%' },
-  { label: 'Commerce', image: 'assets/dev-09.svg', width: '45%', height: '50%' },
-  { label: 'Healthcare Tech', image: 'assets/dev-10.svg', width: '37%', height: '42%' },
-  { label: 'Performance', image: 'assets/dev-11.svg', width: '43%', height: '48%' },
-  { label: 'Product Thinking', image: 'assets/dev-12.svg', width: '46%', height: '54%' },
+const CAPABILITY_TILES: readonly CapabilityTile[] = [
+  {
+    id: 'angular-ui',
+    label: 'Angular UI',
+    category: 'frontend',
+    categoryLabel: 'Frontend Architecture',
+    image: 'assets/dev-01.svg',
+    tagline:
+      'Component architecture with reactive Signals, standalone components, custom directives and accessible design tokens.',
+    chips: ['Angular 18+', 'Signals', 'RxJS', 'TypeScript', 'Responsive UI'],
+    link: { label: 'View Angular projects ↗', route: '/projects' },
+  },
+  {
+    id: 'api-eng',
+    label: 'API Engineering',
+    category: 'backend',
+    categoryLabel: 'Backend & Services',
+    image: 'assets/dev-02.svg',
+    tagline:
+      'REST API design with Node.js/Express and PHP, secure JWT authentication and role-based permissions (RBAC).',
+    chips: ['Node.js', 'Express', 'PHP', 'REST APIs', 'JWT / RBAC'],
+    link: { label: 'Explore experience ↗', route: '/experience' },
+  },
+  {
+    id: 'typescript',
+    label: 'TypeScript',
+    category: 'frontend',
+    categoryLabel: 'Core Language',
+    image: 'assets/dev-03.svg',
+    tagline:
+      'Strict type safety, domain-driven data modeling, generic contracts, and enterprise-grade maintainability.',
+    chips: ['TypeScript', 'ES6+', 'Strict Mode', 'Type Systems'],
+    link: { label: 'View GitHub code ↗', url: 'https://github.com/Villain20000' },
+  },
+  {
+    id: 'data-systems',
+    label: 'Data Systems',
+    category: 'backend',
+    categoryLabel: 'Databases & Storage',
+    image: 'assets/dev-04.svg',
+    tagline:
+      'Relational data modeling, PostgreSQL schemas, Prisma ORM queries, PostGIS geospatial queries, and Redis caching.',
+    chips: ['PostgreSQL', 'Prisma', 'MySQL', 'PostGIS', 'Redis'],
+    link: {
+      label: 'See Direct Democracy ↗',
+      url: 'https://github.com/Villain20000/Direct-Democracy-Municipal-Feedback-Issue-Tracker',
+    },
+  },
+  {
+    id: 'cloud-delivery',
+    label: 'Cloud Delivery',
+    category: 'devops',
+    categoryLabel: 'DevOps & Tooling',
+    image: 'assets/dev-05.svg',
+    tagline:
+      'Docker containerization, GitHub Actions and GitLab CI/CD pipelines for automated testing, linting and deployment.',
+    chips: ['Docker', 'GitHub Actions', 'GitLab CI', 'AWS HealthLake'],
+    link: { label: 'Career journey ↗', route: '/experience' },
+  },
+  {
+    id: 'clean-code',
+    label: 'Clean Code',
+    category: 'devops',
+    categoryLabel: 'Quality & Testing',
+    image: 'assets/dev-06.svg',
+    tagline:
+      'Automated test suites with Jest, Karma, and Playwright, maintainable code architectures, and comprehensive reviews.',
+    chips: ['Jest', 'Karma', 'Playwright', 'Vitest', 'Linting'],
+    link: { label: 'View projects ↗', route: '/projects' },
+  },
+  {
+    id: 'design-systems',
+    label: 'Design Systems',
+    category: 'frontend',
+    categoryLabel: 'UI / UX Craft',
+    image: 'assets/dev-07.svg',
+    tagline:
+      'Figma-to-code precision, modular design tokens, WCAG accessible contrasts, and micro-interactions.',
+    chips: ['Figma', 'Design Tokens', 'a11y', 'Micro-interactions'],
+    link: { label: 'About my approach ↗', route: '/about' },
+  },
+  {
+    id: 'automation',
+    label: 'Automation',
+    category: 'backend',
+    categoryLabel: 'Workflows & Integration',
+    image: 'assets/dev-08.svg',
+    tagline:
+      '35+ n8n workflows, serverless automation pipelines, webhook processing, and third-party data synchronization.',
+    chips: ['n8n', 'Serverless', 'Webhooks', 'Python Scripts'],
+    link: { label: 'Freelance work ↗', route: '/experience' },
+  },
+  {
+    id: 'commerce',
+    label: 'Commerce',
+    category: 'backend',
+    categoryLabel: 'E-commerce & SaaS',
+    image: 'assets/dev-09.svg',
+    tagline:
+      'Tailored storefronts, product catalogs, shopping carts, and secure Stripe & PayPal checkout integrations.',
+    chips: ['Stripe', 'PayPal', 'PHP', 'E-commerce', 'Logistis SaaS'],
+    link: { label: 'Explore projects ↗', route: '/projects' },
+  },
+  {
+    id: 'healthcare-tech',
+    label: 'Healthcare Tech',
+    category: 'healthtech',
+    categoryLabel: 'Healthcare & Biobanking',
+    image: 'assets/dev-10.svg',
+    tagline:
+      '15 healthcare features across e-MetaBio & e-MetaBank, biospecimen logistics, GDPR eConsent, and HL7 v2 / FHIR.',
+    chips: ['HL7 v2', 'FHIR', 'ICD-11', 'eConsent', 'Biobanking'],
+    link: { label: 'Explore HealthTech study ↗', route: '/healthtech' },
+  },
+  {
+    id: 'performance',
+    label: 'Performance',
+    category: 'devops',
+    categoryLabel: 'Web Vitals & Speed',
+    image: 'assets/dev-11.svg',
+    tagline:
+      'Composite-only 60fps animations, code-splitting, lazy chunk routing, and sub-second Largest Contentful Paint.',
+    chips: ['Core Web Vitals', 'LCP / INP', 'Lazy Chunks', 'WAAPI / CSS'],
+    link: { label: 'Portfolio details ↗', route: '/about' },
+  },
+  {
+    id: 'product-thinking',
+    label: 'Product Thinking',
+    category: 'healthtech',
+    categoryLabel: 'Product & Usability',
+    image: 'assets/dev-12.svg',
+    tagline:
+      'Connecting technical architecture with real clinical, civic and commercial user workflows that solve real problems.',
+    chips: ['User Workflows', 'SaaS', 'ERP Systems', 'Feedback Loops'],
+    link: { label: 'Start a conversation ↗', route: '/contact' },
+  },
 ] as const;
 
 @Component({
@@ -68,6 +202,7 @@ const TILE_PATTERN = [
 })
 export class Home implements AfterViewInit, OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly toast = inject(ToastService);
 
   @ViewChild('tileGrid') private tileGrid?: ElementRef<HTMLElement>;
   @ViewChild('luminousSection') private luminousSection?: ElementRef<HTMLElement>;
@@ -79,13 +214,35 @@ export class Home implements AfterViewInit, OnDestroy {
 
   private scrollFrame = 0;
   private pointerInsideLuminous = false;
+  private readonly spotlight = { x: 0, y: 0, r: 0 };
+  private spotlightTween?: gsap.core.Tween;
 
-  protected readonly tiles: readonly Tile[] = Array.from({ length: 4 }, (_, cycle) =>
-    TILE_PATTERN.map((tile, index) => ({
-      ...tile,
-      id: `${cycle}-${index}`,
-    })),
-  ).flat();
+  protected readonly categoryFilters: readonly CategoryFilter[] = [
+    { id: 'all', label: 'All Capabilities', count: 12 },
+    { id: 'frontend', label: 'Frontend', count: 3 },
+    { id: 'backend', label: 'Backend & Data', count: 4 },
+    { id: 'healthtech', label: 'HealthTech & SaaS', count: 2 },
+    { id: 'devops', label: 'DevOps & Quality', count: 3 },
+  ];
+
+  protected selectedCategory: 'all' | 'frontend' | 'backend' | 'healthtech' | 'devops' = 'all';
+  protected activeTile: CapabilityTile = CAPABILITY_TILES[0];
+  protected readonly tiles: readonly CapabilityTile[] = CAPABILITY_TILES;
+
+  protected get filteredTiles(): readonly CapabilityTile[] {
+    if (this.selectedCategory === 'all') {
+      return this.tiles;
+    }
+    return this.tiles.filter((tile) => tile.category === this.selectedCategory);
+  }
+
+  protected selectCategory(category: 'all' | 'frontend' | 'backend' | 'healthtech' | 'devops'): void {
+    this.selectedCategory = category;
+    const match = this.tiles.find((t) => category === 'all' || t.category === category);
+    if (match) {
+      this.activeTile = match;
+    }
+  }
 
   protected readonly services: readonly Service[] = [
     {
@@ -217,11 +374,17 @@ export class Home implements AfterViewInit, OnDestroy {
   ];
 
   ngAfterViewInit(): void {
+    const inner = this.luminousInner?.nativeElement;
+    if (inner) {
+      this.spotlight.x = inner.clientWidth / 2;
+      this.spotlight.y = inner.clientHeight / 2;
+    }
     this.updateScrollUi();
   }
 
   ngOnDestroy(): void {
     cancelAnimationFrame(this.scrollFrame);
+    this.spotlightTween?.kill();
   }
 
   @HostListener('window:scroll')
@@ -258,7 +421,18 @@ export class Home implements AfterViewInit, OnDestroy {
 
     const rect = inner.getBoundingClientRect();
     this.pointerInsideLuminous = true;
-    this.setSpotlight(event.clientX - rect.left, event.clientY - rect.top, 210);
+    const targetX = event.clientX - rect.left;
+    const targetY = event.clientY - rect.top;
+
+    this.spotlightTween?.kill();
+    this.spotlightTween = gsap.to(this.spotlight, {
+      x: targetX,
+      y: targetY,
+      r: 220,
+      duration: 0.45,
+      ease: 'power2.out',
+      onUpdate: () => this.applySpotlight(),
+    });
   }
 
   protected onLuminousLeave(): void {
@@ -268,7 +442,18 @@ export class Home implements AfterViewInit, OnDestroy {
 
     const inner = this.luminousInner?.nativeElement;
     this.pointerInsideLuminous = false;
-    this.setSpotlight(inner ? inner.clientWidth / 2 : 0, inner ? inner.clientHeight / 2 : 0, 90);
+    const centerX = inner ? inner.clientWidth / 2 : this.spotlight.x;
+    const centerY = inner ? inner.clientHeight / 2 : this.spotlight.y;
+
+    this.spotlightTween?.kill();
+    this.spotlightTween = gsap.to(this.spotlight, {
+      x: centerX,
+      y: centerY,
+      r: 90,
+      duration: 0.6,
+      ease: 'power2.out',
+      onUpdate: () => this.applySpotlight(),
+    });
   }
 
   protected onLuminousFocus(): void {
@@ -282,7 +467,15 @@ export class Home implements AfterViewInit, OnDestroy {
     }
 
     this.pointerInsideLuminous = true;
-    this.setSpotlight(inner.clientWidth / 2, inner.clientHeight / 2, 240);
+    this.spotlightTween?.kill();
+    this.spotlightTween = gsap.to(this.spotlight, {
+      x: inner.clientWidth / 2,
+      y: inner.clientHeight / 2,
+      r: 240,
+      duration: 0.5,
+      ease: 'power2.out',
+      onUpdate: () => this.applySpotlight(),
+    });
   }
 
   protected onLuminousBlur(): void {
@@ -290,46 +483,16 @@ export class Home implements AfterViewInit, OnDestroy {
     this.updateLuminousFromScroll();
   }
 
-  protected onTileEnter(event: Event, tile: HTMLElement): void {
-    if ((event as PointerEvent).pointerType === 'touch' || this.prefersReducedMotion()) {
-      return;
-    }
-
-    const grid = this.tileGrid?.nativeElement;
-    if (!grid) {
-      return;
-    }
-
-    const tiles = Array.from(grid.querySelectorAll<HTMLElement>('.expanding-tile'));
-    const activeRect = tile.getBoundingClientRect();
-    const activeX = activeRect.left + activeRect.width / 2;
-    const activeY = activeRect.top + activeRect.height / 2;
-
-    for (const other of tiles) {
-      if (other === tile) {
-        other.style.transform = 'scale(1.65)';
-        continue;
-      }
-
-      const rect = other.getBoundingClientRect();
-      const distance = Math.hypot(
-        activeX - (rect.left + rect.width / 2),
-        activeY - (rect.top + rect.height / 2),
-      );
-      const factor = Math.max(0, 1 - distance / 270);
-      other.style.transform = factor > 0 ? `scale(${1 + factor * 0.25})` : '';
-    }
+  protected onTileEnter(tile: CapabilityTile): void {
+    this.activeTile = tile;
   }
 
-  protected onTileLeave(): void {
-    const grid = this.tileGrid?.nativeElement;
-    if (!grid) {
-      return;
-    }
+  protected onTileClick(tile: CapabilityTile): void {
+    this.activeTile = tile;
+  }
 
-    grid
-      .querySelectorAll<HTMLElement>('.expanding-tile')
-      .forEach((tile) => (tile.style.transform = ''));
+  protected copyEmail(): void {
+    this.toast.copyText('john89skg@gmail.com', 'Email copied to clipboard!', 'john89skg@gmail.com');
   }
 
   private updateScrollUi(): void {
@@ -377,13 +540,20 @@ export class Home implements AfterViewInit, OnDestroy {
       1,
     );
     const maxRadius = Math.min(270, inner.clientWidth * 0.35);
-    this.setSpotlight(inner.clientWidth / 2, inner.clientHeight / 2, maxRadius * progress);
+    const targetR = maxRadius * progress;
+    const centerX = inner.clientWidth / 2;
+    const centerY = inner.clientHeight / 2;
+
+    this.spotlight.x = centerX;
+    this.spotlight.y = centerY;
+    this.spotlight.r = targetR;
+    this.applySpotlight();
   }
 
-  private setSpotlight(x: number, y: number, radius: number): void {
+  private applySpotlight(): void {
     const lit = this.luminousLit?.nativeElement;
     if (lit) {
-      lit.style.clipPath = `circle(${Math.max(0, radius)}px at ${x}px ${y}px)`;
+      lit.style.clipPath = `circle(${Math.max(0, this.spotlight.r)}px at ${this.spotlight.x}px ${this.spotlight.y}px)`;
     }
   }
 

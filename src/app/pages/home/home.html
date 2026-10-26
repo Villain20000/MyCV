@@ -1,11 +1,55 @@
 <main id="main-content" tabindex="-1" class="home-page">
   <section class="hero wrap">
-    <div class="eyebrow">Full-stack developer / Selected work</div>
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-media-glow"></div>
+      <img
+        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1400&q=80"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      >
+    </div>
+
+    <div class="hero-status-strip">
+      <div class="status-pill" aria-label="Current status: Available for new opportunities">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Available for new opportunities</span>
+      </div>
+      <div class="eyebrow">Full-stack developer / Selected work</div>
+    </div>
     <h1>Building digital<br>experiences<br>that work<span class="hero-dot">.</span></h1>
     <p>
       Full-stack developer specializing in Angular, TypeScript, PHP and scalable web applications
       — from custom e-commerce platforms to complex HealthTech and SaaS systems.
     </p>
+
+    <a
+      class="hero-stamp"
+      href="#work"
+      appMagnetic
+      aria-label="Scroll to explore selected work"
+    >
+      <svg viewBox="0 0 100 100" class="stamp-svg" aria-hidden="true">
+        <path
+          id="heroStampPath"
+          d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+          fill="none"
+        />
+        <text font-size="9.6" letter-spacing="2.6px" fill="currentColor">
+          <textPath href="#heroStampPath" startOffset="0%">
+            ✦ SCROLL TO EXPLORE ✦ DIGITAL CRAFT ✦
+          </textPath>
+        </text>
+      </svg>
+      <span class="stamp-center" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </span>
+    </a>
+
     <div class="hero-bottom">
       <span>Scroll to explore ↓</span>
       <span>Engineering × Experience</span>
@@ -17,6 +61,7 @@
   <section
     class="luminous-section"
     id="philosophy"
+    #luminousSection
     tabindex="0"
     aria-label="Interactive luminous typography"
     (pointermove)="onLuminousMove($event)"
@@ -24,11 +69,9 @@
     (focus)="onLuminousFocus()"
     (blur)="onLuminousBlur()"
   >
-    <div class="luminous-inner">
+    <div class="luminous-inner" #luminousInner>
       <h2 class="luminous-title">Thoughtful code.<br>Meaningful experiences.<br>Built to make an impact.</h2>
-      <h2 aria-hidden="true" class="luminous-title luminous-lit" #luminousLit>
-        Thoughtful code.<br>Meaningful experiences.<br>Built to make an impact.
-      </h2>
+      <h2 aria-hidden="true" class="luminous-title luminous-lit" #luminousLit>Thoughtful code.<br>Meaningful experiences.<br>Built to make an impact.</h2>
     </div>
     <span class="luminous-hint">Move your cursor · Scroll to reveal</span>
   </section>
@@ -38,39 +81,91 @@
       <div class="eyebrow">02 / Digital craft</div>
       <h2>Expanding<br>possibilities.</h2>
       <p>
-        An interactive visual mosaic of the tools, people and environments behind modern web
-        development. Hover or focus to explore.
+        An interactive capability matrix bridging frontend engineering, backend architecture, and
+        specialized healthcare workflows. Hover or tap to inspect.
       </p>
-    </div>
-    <div class="expanding-viewport">
-      <div class="expanding-grid" #tileGrid>
-        @for (tile of tiles; track tile.id) {
-          <a
-            class="expanding-tile"
-            href="#work"
-            [attr.aria-label]="'View projects: ' + tile.label"
-            [attr.data-label]="tile.label"
-            [style.--tile-size]="tile.width"
-            [style.--tile-height]="tile.height"
-            (pointerenter)="onTileEnter($event, tileEl)"
-            (pointerleave)="onTileLeave()"
-            (focus)="onTileEnter($event, tileEl)"
-            (blur)="onTileLeave()"
-            #tileEl
+
+      <div class="category-filters" role="tablist" aria-label="Filter capabilities by domain">
+        @for (filter of categoryFilters; track filter.id) {
+          <button
+            type="button"
+            class="category-filter-btn"
+            [class.active]="selectedCategory === filter.id"
+            role="tab"
+            [attr.aria-selected]="selectedCategory === filter.id"
+            (click)="selectCategory(filter.id)"
           >
-            <img
-              [src]="tile.image"
-              [alt]="tile.label"
-              width="640"
-              height="500"
-              loading="lazy"
-              decoding="async"
-            >
-          </a>
+            <span>{{ filter.label }}</span>
+            <span class="filter-count">{{ filter.count }}</span>
+          </button>
         }
       </div>
     </div>
-    <div class="expanding-footnote">HOVER TO EXPLORE · SCROLL HORIZONTALLY ON MOBILE</div>
+
+    <div class="expanding-viewport">
+      <div class="expanding-grid" #tileGrid>
+        @for (tile of filteredTiles; track tile.id) {
+          <button
+            type="button"
+            class="expanding-tile"
+            [class.active]="activeTile.id === tile.id"
+            [attr.data-category]="tile.category"
+            [attr.aria-label]="'Inspect ' + tile.label + ' capability'"
+            (pointerenter)="onTileEnter(tile)"
+            (focus)="onTileEnter(tile)"
+            (click)="onTileClick(tile)"
+          >
+            <div class="tile-icon-wrap">
+              <img
+                [src]="tile.image"
+                [alt]="tile.label"
+                width="640"
+                height="500"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="tile-badge-strip">
+              <span class="tile-category-dot" [attr.data-cat]="tile.category"></span>
+              <span class="tile-label">{{ tile.label }}</span>
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (activeTile; as tile) {
+      <div class="capability-hud" appSpotlight>
+        @for (item of [tile]; track item.id) {
+          <div class="hud-content-morph">
+            <div class="hud-main">
+              <div class="hud-meta">
+                <span class="hud-category-badge" [attr.data-cat]="item.category">{{ item.categoryLabel }}</span>
+                <span class="hud-status">Domain Verified</span>
+              </div>
+              <h3 class="hud-title">{{ item.label }}</h3>
+              <p class="hud-tagline">{{ item.tagline }}</p>
+              <div class="hud-chips">
+                @for (chip of item.chips; track chip) {
+                  <span>{{ chip }}</span>
+                }
+              </div>
+            </div>
+            @if (item.link; as link) {
+              <div class="hud-action">
+                @if (link.route) {
+                  <a class="link-arrow" [routerLink]="link.route">{{ link.label }}</a>
+                } @else if (link.url) {
+                  <a class="link-arrow" [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <div class="expanding-footnote">CLICK OR HOVER ANY CAPABILITY TO INSPECT ARCHITECTURE &amp; STACK</div>
   </section>
 
   <section class="section wrap github-showcase" aria-labelledby="github-showcase-title">
@@ -102,7 +197,7 @@
             href="https://github.com/Villain20000/Direct-Democracy-Municipal-Feedback-Issue-Tracker"
             target="_blank"
             rel="noopener noreferrer"
-          >GitHub ↗</a>
+          >GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
         </div>
       </article>
       <article class="github-preview reveal" appSpotlight>
@@ -122,7 +217,7 @@
         </div>
       </article>
     </div>
-    <a class="github-all-link" routerLink="/projects">Explore all projects ↗</a>
+    <a class="github-all-link" routerLink="/projects">Explore all projects <span class="arrow-cue" aria-hidden="true">↗</span></a>
   </section>
 
   <section class="section wrap" id="work">
@@ -194,7 +289,7 @@
           <span>Clinical data / Angular / Python</span>
           <span>Professional work</span>
         </div>
-        <h3>Metabio Platform ↗</h3>
+        <h3>Metabio Platform <span class="arrow-cue" aria-hidden="true">↗</span></h3>
         <p>
           Patient management, advanced search, eConsent, access controls, biospecimen traceability
           and clinical-data workflows.
@@ -215,11 +310,11 @@
       </div>
     </div>
     <p class="projects-link">
-      <a class="link-arrow" routerLink="/projects">View all projects on a dedicated page ↗</a>
+      <a class="link-arrow" routerLink="/projects">View all projects on a dedicated page <span class="arrow-cue" aria-hidden="true">↗</span></a>
     </p>
   </section>
 
-  <section class="experience-chapter" id="experience" aria-labelledby="experience-title">
+  <section class="experience-chapter" id="experience" aria-labelledby="experience-title" #experienceChapter>
     <div class="experience-header reveal">
       <div>
         <div class="eyebrow">03 / Career journey</div>
@@ -238,48 +333,76 @@
         <article class="experience-card reveal" appSpotlight>
           <span class="experience-index">01 / HEALTH TECHNOLOGY</span>
           <h3>Metabio</h3>
-          <div class="experience-role">Full Stack Software Engineer · 2024–Present</div>
+          <div class="experience-role">Full Stack Software Engineer · 11/2024–Present · Thessaloniki, Greece</div>
           <p>
-            Leading Angular frontend redesign and end-to-end features across patient management,
-            eConsent, specimen access and biospecimen traceability.
+            Led a redesign of Angular frontends for healthcare and biobanking applications.
+            Independently owned 15 end-to-end features across e-MetaBio, e-MetaBank and e-MetaRes,
+            covering patient management, eConsent, specimen traceability, and Python laboratory
+            integrations (HL7 v2, FHIR).
           </p>
           <div class="experience-pills">
             <span>Angular</span>
             <span>Node.js</span>
             <span>HealthTech</span>
             <span>eConsent</span>
+            <span>Biobanking</span>
+            <span>HL7 / FHIR</span>
           </div>
-          <p><a routerLink="/healthtech">Explore HealthTech experience ↗</a></p>
+          <p><a routerLink="/healthtech">Explore HealthTech experience <span class="arrow-cue" aria-hidden="true">↗</span></a></p>
         </article>
 
         <article class="experience-card reveal" appSpotlight>
-          <span class="experience-index">02 / E-COMMERCE &amp; LOGISTICS</span>
-          <h3>Cactus Web</h3>
-          <div class="experience-role">Full Stack Developer · 2023</div>
+          <span class="experience-index">02 / FULL STACK &amp; AUTOMATION</span>
+          <h3>Independent / Freelance</h3>
+          <div class="experience-role">Full Stack Developer · 11/2023–10/2024 · Remote</div>
           <p>
-            Built custom e-commerce storefronts, checkout and payment flows with PHP and Angular,
-            and contributed to Logistis, a shipping and logistics SaaS.
+            Delivered custom web applications using Angular, Node.js, Vue.js, Laravel, REST APIs and
+            PostgreSQL/MySQL. Developed 35+ n8n and serverless automation workflows for
+            synchronization, integrations and alerts.
+          </p>
+          <div class="experience-pills">
+            <span>Angular</span>
+            <span>Node.js</span>
+            <span>Vue.js</span>
+            <span>Laravel</span>
+            <span>PostgreSQL</span>
+            <span>n8n</span>
+          </div>
+        </article>
+
+        <article class="experience-card reveal" appSpotlight>
+          <span class="experience-index">03 / E-COMMERCE &amp; LOGISTICS</span>
+          <h3>Cactus Web</h3>
+          <div class="experience-role">Full Stack Developer · 02/2023–10/2023 · Thessaloniki, Greece</div>
+          <p>
+            Developed custom e-commerce applications with PHP and Angular, including product catalogs,
+            carts, checkout and order management. Contributed to a custom marketplace and the Logistis
+            shipping/logistics SaaS with Stripe and PayPal payments.
           </p>
           <div class="experience-pills">
             <span>PHP</span>
             <span>Angular</span>
             <span>E-commerce</span>
-            <span>Payments</span>
+            <span>Stripe &amp; PayPal</span>
+            <span>Logistics SaaS</span>
           </div>
         </article>
 
         <article class="experience-card reveal" appSpotlight>
-          <span class="experience-index">03 / SAAS &amp; ERP</span>
+          <span class="experience-index">04 / SAAS &amp; ERP</span>
           <h3>Softexpert</h3>
-          <div class="experience-role">Full Stack Developer · 2018–2023</div>
+          <div class="experience-role">Full Stack Developer (Angular / Node.js) · 07/2018–01/2023 · Greece</div>
           <p>
+            Built custom full-stack Angular e-commerce applications with Node.js/Express.js REST APIs.
             Contributed to the
             <a href="https://mysitenow.gr/" target="_blank" rel="noopener noreferrer">MySiteNow</a>
-            Angular website builder and its public integration, plus ERP and custom e-commerce
-            work for client projects.
+            Angular website builder, implemented ERP invoicing/inventory modules, and delivered
+            pixel-accurate Figma interfaces.
           </p>
           <div class="experience-pills">
             <span>Angular</span>
+            <span>Node.js</span>
+            <span>Express.js</span>
             <span>PHP</span>
             <span>SaaS</span>
             <span>ERP</span>
@@ -287,19 +410,36 @@
         </article>
 
         <article class="experience-card reveal" appSpotlight>
-          <span class="experience-index">04 / INDEPENDENT ENGINEERING</span>
-          <h3>Selected Projects</h3>
-          <div class="experience-role">Full Stack Developer · Product Engineering</div>
+          <span class="experience-index">05 / E-COMMERCE OPERATIONS</span>
+          <h3>Vmondo Bachatouris</h3>
+          <div class="experience-role">E-commerce Management · 03/2015–06/2018 · Greece</div>
           <p>
-            Independent platforms spanning civic issue reporting, Greek legal AI and
-            property-management SaaS, built end to end with Angular, Node.js and PostgreSQL.
+            Managed day-to-day e-commerce operations and online store administration.
+          </p>
+          <div class="experience-pills">
+            <span>E-commerce</span>
+            <span>Store Operations</span>
+            <span>Administration</span>
+          </div>
+        </article>
+
+        <article class="experience-card reveal" appSpotlight>
+          <span class="experience-index">06 / SELECTED ENGINEERING PROJECTS</span>
+          <h3>Selected Projects</h3>
+          <div class="experience-role">Full Stack Product Engineering · Ongoing · Remote</div>
+          <p>
+            Independent platforms: PolykatoikiaOS (Property Management SaaS with NestJS & Prisma),
+            Direct Democracy (Municipal Feedback & Issue Tracker with Angular & Express), and
+            NomosAI (Greek Legal AI Workspace with RAG).
           </p>
           <div class="experience-pills">
             <span>Angular</span>
             <span>NestJS</span>
             <span>PostgreSQL</span>
+            <span>Prisma</span>
             <span>AI / RAG</span>
           </div>
+          <p><a routerLink="/projects">Explore all projects <span class="arrow-cue" aria-hidden="true">↗</span></a></p>
         </article>
       </div>
     </div>
@@ -328,7 +468,19 @@
   <section class="section wrap" id="about">
     <div class="eyebrow">03 / About me</div>
     <div class="about reveal">
-      <h2>Code with<br>purpose.</h2>
+      <div class="about-lead">
+        <h2>Code with<br>purpose.</h2>
+        <div class="about-card-photo" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
+            alt=""
+            loading="lazy"
+            width="600"
+            height="360"
+          >
+          <span class="photo-caption">ENGINEERING WORKSPACE · CONTINUOUS LEARNING</span>
+        </div>
+      </div>
       <div>
         <p>
           I develop web applications that bring together usability, business needs and technical
@@ -411,7 +563,7 @@
           <span>{{ principle.index }}</span>
           <h3>{{ principle.title }}</h3>
           <p>{{ principle.description }}</p>
-          <span aria-hidden="true" class="principle-icon">↗</span>
+          <span aria-hidden="true" class="principle-icon arrow-cue">↗</span>
         </article>
       }
     </div>
@@ -453,7 +605,7 @@
         <summary>Where can I see your code?<span>+</span></summary>
         <p>
           Explore my public projects on
-          <a href="https://github.com/Villain20000" target="_blank" rel="noopener noreferrer">GitHub ↗</a>,
+          <a href="https://github.com/Villain20000" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>,
           including the Municipal Feedback and Issue Tracker project.
         </p>
       </details>
@@ -466,18 +618,33 @@
       Let's build<br>something<br><span class="shimmer-text contact-shimmer">great</span><span
         class="soft-dot">.</span>
     </h2>
-    <a class="cta" appMagnetic href="mailto:john89skg@gmail.com">Email me ↗</a>
+    <div class="contact-actions">
+      <a class="cta" appMagnetic href="mailto:john89skg@gmail.com">Email me <span class="arrow-cue" aria-hidden="true">↗</span></a>
+      <button
+        type="button"
+        class="cta-copy"
+        appMagnetic
+        aria-label="Copy email address to clipboard"
+        (click)="copyEmail()"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span>Copy Email</span>
+      </button>
+    </div>
     <div class="contact-links">
       <a
         href="https://www.linkedin.com/in/ioannis-ioannidis-a18875156/"
         target="_blank"
         rel="noopener noreferrer"
-      >LinkedIn ↗</a>
+      >LinkedIn <span class="arrow-cue" aria-hidden="true">↗</span></a>
       <a
         href="https://github.com/Villain20000"
         target="_blank"
         rel="noopener noreferrer"
-      >GitHub ↗</a>
+      >GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
     </div>
   </section>
 </main>
