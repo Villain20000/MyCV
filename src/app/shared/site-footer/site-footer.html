@@ -1,0 +1,67 @@
+<footer class="foot" id="contact">
+  <div class="foot__cta">
+    <div>
+      <span class="eyebrow eyebrow--light">Get hired</span>
+      <p class="foot__title" data-lines="Let's build|together"></p>
+    </div>
+    <div data-inview data-y="20" data-delay="150">
+      <button class="pill pill--light" type="button" (click)="modal.open()">
+        Hire me
+        <app-icon class="ico ico--sm" name="arrow" data-hover="arrow" />
+      </button>
+    </div>
+  </div>
+
+  <div class="foot__cols">
+    <div class="foot__brand">
+      <span class="brand"><app-icon class="mark" name="mark" /><span>Ioannidis</span></span>
+      <p>
+        Full-stack developer building practical digital experiences with Angular, TypeScript, PHP and
+        Node.js — from HealthTech platforms to custom e-commerce and SaaS.
+      </p>
+      <address class="foot__contact">
+        <a [href]="'mailto:' + email">{{ email }}</a>
+        <a [href]="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn · Ioannis Ioannidis</a>
+        <span>Thessaloniki, Greece · Remote friendly</span>
+      </address>
+    </div>
+
+    <nav class="foot__col" aria-label="Selected work">
+      <h3>Work</h3>
+      <ul>
+        @for (link of workLinks; track link.path) {
+          <li><a [routerLink]="link.path">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <nav class="foot__col" aria-label="Explore">
+      <h3>Explore</h3>
+      <ul>
+        @for (link of siteLinks; track link.path) {
+          <li><a [routerLink]="link.path">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <nav class="foot__col" aria-label="Elsewhere">
+      <h3>Elsewhere</h3>
+      <ul>
+        <li><a [href]="github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a [href]="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a [href]="'mailto:' + email">Email</a></li>
+        <li><a href="#main-content" (click)="backToTop()">Back to top ↑</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="foot__bar">
+    <p>© 2026 Ioannis Ioannidis. All rights reserved.</p>
+    <nav aria-label="Social">
+      <a [href]="github" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a [href]="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a [href]="'mailto:' + email">Email</a>
+    </nav>
+    <nav aria-label="Availability"><span>Open to new opportunities</span></nav>
+  </div>
+</footer>

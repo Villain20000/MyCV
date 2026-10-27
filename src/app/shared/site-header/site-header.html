@@ -1,64 +1,99 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
-<header class="site-nav">
-  <a class="brand" routerLink="/" aria-label="Portfolio home">
-    DEV<span class="brand-slash">/</span>PORTFOLIO
-  </a>
+<header class="site-head" [class.is-stuck]="stuck()">
+  <div class="site-head__inner">
+    <nav class="site-head__nav" aria-label="Primary">
+      @for (link of links; track link.path) {
+        <a [routerLink]="link.path" [attr.aria-current]="isActive(link.path) ? 'page' : null">
+          {{ link.label }}
+        </a>
+      }
+    </nav>
 
-  <nav class="desktop-nav" aria-label="Main navigation">
-    @for (link of links; track link.path) {
-      <a
-        [routerLink]="link.path"
-        [attr.aria-current]="isActive(link.path) ? 'page' : null"
-      >{{ link.label }}</a>
-    }
-  </nav>
+    <div class="site-head__brand">
+      <a class="brand" routerLink="/" aria-label="Ioannis Ioannidis — home">
+        <app-icon class="mark" name="mark" />
+        <span>Ioannidis</span>
+      </a>
+    </div>
 
-  <a
-    class="nav-cta"
-    href="https://github.com/Villain20000"
-    target="_blank"
-    rel="noopener noreferrer"
-  >GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
+    <div class="site-head__actions">
+      <button
+        class="icon-btn theme-toggle"
+        type="button"
+        (click)="toggleTheme()"
+        [attr.aria-label]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+        [attr.title]="theme.mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+        [attr.aria-pressed]="theme.mode() === 'light'"
+      >
+        <app-icon [name]="theme.mode() === 'dark' ? 'sun' : 'moon'" />
+      </button>
 
-  <button
-    class="mobile-menu-btn"
-    type="button"
-    [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
-    aria-controls="mobileMenu"
-    [attr.aria-expanded]="menuOpen()"
-    (click)="toggleMenu()"
-  >
-    <span></span>
-    <span></span>
-  </button>
+      <button class="head-link" type="button" (click)="openModal()">Hire me</button>
+
+      <button
+        class="icon-btn burger"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="siteMenu"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-haspopup]="'dialog'"
+        (click)="toggleMenu()"
+      >
+        <i></i>
+        <i></i>
+      </button>
+    </div>
+  </div>
 </header>
 
-@if (menuOpen()) {
-  <div class="mobile-nav-backdrop" (click)="closeMenu()" aria-hidden="true"></div>
-}
-
-<nav
-  class="mobile-nav"
-  id="mobileMenu"
-  aria-label="Mobile navigation"
-  [class.open]="menuOpen()"
+<div
+  class="menu"
+  id="siteMenu"
+  #menuRoot
+  [class.is-open]="menuOpen()"
+  [attr.aria-hidden]="menuOpen() ? null : 'true'"
   [attr.inert]="menuOpen() ? null : ''"
 >
-  <div class="mobile-nav-header">
-    <span class="mobile-nav-title">Menu</span>
-    <span class="mobile-nav-hint">Select a destination</span>
+  <div class="menu__bg" (click)="closeMenu()" aria-hidden="true"></div>
+  <div class="menu__panel">
+    <div class="menu__inner" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="menu__top">
+        <span class="brand"><app-icon class="mark" name="mark" /><span>Ioannidis</span></span>
+        <button
+          class="icon-btn"
+          type="button"
+          data-menu-close
+          aria-label="Close menu"
+          (click)="closeMenu()"
+        >
+          <app-icon name="x" />
+        </button>
+      </div>
+
+      <nav class="menu__nav" aria-label="Site">
+        @for (link of links; track link.path) {
+          <a class="menu__link" [routerLink]="link.path" (click)="closeMenu()">
+            <span>{{ link.index }}</span>{{ link.label }}
+          </a>
+        }
+      </nav>
+
+      <div class="menu__bottom">
+        <button class="pill pill--light" type="button" (click)="openModal()">
+          Hire me
+          <app-icon class="ico ico--sm" name="arrow" />
+        </button>
+        <nav class="menu__social" aria-label="Social">
+          @for (social of socials; track social.label) {
+            @if (social.href.startsWith('http')) {
+              <a [href]="social.href" target="_blank" rel="noopener noreferrer">{{ social.label }}</a>
+            } @else {
+              <a [href]="social.href">{{ social.label }}</a>
+            }
+          }
+        </nav>
+      </div>
+    </div>
   </div>
-  <div class="mobile-nav-links">
-    @for (link of links; track link.path) {
-      <a
-        [routerLink]="link.path"
-        [attr.aria-current]="isActive(link.path) ? 'page' : null"
-        (click)="closeMenu()"
-      >
-        <span>{{ link.mobileLabel }}</span>
-        <span class="mobile-arrow" aria-hidden="true">↗</span>
-      </a>
-    }
-  </div>
-</nav>
+</div>

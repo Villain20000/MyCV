@@ -1,69 +1,147 @@
-<main id="main-content" tabindex="-1" class="page-shell page-stack">
-  <section class="page-hero page-fade">
-    <div class="page-eyebrow">05 / GET IN TOUCH</div>
-    <h1>Let’s make<br>it happen.</h1>
-    <p>
-      Open to meaningful conversations about full-stack engineering, Angular projects, platform
-      development and product work.
-    </p>
-  </section>
+<div class="page">
+  <app-page-hero
+    eyebrow="05 / Get in touch"
+    [lines]="['Let’s make', 'it happen.']"
+    lead="Open to meaningful conversations about full-stack engineering, Angular projects, platform development and product work."
+  >
+    <div class="page-hero__aside">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Available now · replies within 48 hours</span>
+      <a class="pill pill--light pill--sm" [href]="'mailto:' + email">
+        {{ email }}
+        <app-icon class="ico ico--sm" name="arrow" />
+      </a>
+    </div>
+  </app-page-hero>
 
-  <section class="glass-section">
-    <div class="glass-grid">
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">Direct contact</span>
-        <h2>Send me an email.</h2>
-        <p>
-          <a class="contact-email" href="mailto:john89skg@gmail.com">john89skg@gmail.com</a>
-          — best for roles, projects and detailed conversations.
+  <section class="sec">
+    <div class="contact-grid">
+      <form class="contact-form" (submit)="sendEmail($event)" aria-label="Contact form">
+        <span class="micro">Project inquiry</span>
+        <h2>Tell me about your project.</h2>
+        <p class="contact-form__note">
+          Opens your email app with everything pre-filled — no account, no tracking, no server.
         </p>
-        <div class="contact-card-actions">
-          <a class="link-arrow" href="mailto:john89skg@gmail.com">Email me <span class="arrow-cue" aria-hidden="true">↗</span></a>
-          <button
-            type="button"
-            class="action-pill-btn"
-            aria-label="Copy email address"
-            (click)="copyEmail()"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-            <span>Copy</span>
+
+        <div class="form-grid">
+          <label class="field">
+            <span>Your name</span>
+            <input
+              type="text"
+              name="name"
+              autocomplete="name"
+              placeholder="Jane Papadopoulou"
+              required
+              (input)="updateField('name', $event)"
+            />
+          </label>
+
+          <label class="field">
+            <span>Your email</span>
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="jane@company.gr"
+              required
+              (input)="updateField('email', $event)"
+            />
+          </label>
+
+          <label class="field">
+            <span>Project type</span>
+            <select name="type" (change)="updateField('type', $event)">
+              @for (option of projectTypes; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Budget range <em>(optional)</em></span>
+            <select name="budget" (change)="updateField('budget', $event)">
+              @for (option of budgetRanges; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="field field--full">
+            <span>Project details</span>
+            <textarea
+              name="message"
+              rows="5"
+              required
+              placeholder="Timeline, goals, links — anything that helps me reply with substance."
+              (input)="updateField('message', $event)"
+            ></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="pill pill--solid" type="submit">
+            Send via email
+            <app-icon class="ico ico--sm" name="arrow" />
+          </button>
+          <button class="pill pill--ghost" type="button" (click)="copyEmail()">
+            Copy email instead
+            <app-icon class="ico ico--sm" name="copy" />
           </button>
         </div>
-      </article>
 
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">Professional network</span>
-        <h2>Connect on LinkedIn.</h2>
-        <p>Roles, dates and the full professional background.</p>
-        <a
-          class="link-arrow"
-          href="https://www.linkedin.com/in/ioannis-ioannidis-a18875156/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >View LinkedIn <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </article>
+        <details class="checklist">
+          <summary>What to include for a fast reply</summary>
+          <ul>
+            <li>What you want to build (or fix) in 2–3 sentences</li>
+            <li>Timeline and whether design / backend already exist</li>
+            <li>Links: repo, Figma, live site, or reference products</li>
+          </ul>
+        </details>
+      </form>
 
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">Code</span>
-        <h2>Explore my GitHub.</h2>
-        <p>Public repositories, code and selected projects.</p>
-        <a
-          class="link-arrow"
-          href="https://github.com/Villain20000"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Visit GitHub <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </article>
+      <div class="contact-side">
+        <article class="info-card" data-inview data-y="24">
+          <span class="micro">Direct contact</span>
+          <h2>Send me an email.</h2>
+          <p>
+            <a class="contact-email" [href]="'mailto:' + email">{{ email }}</a>
+            — best for roles, projects and detailed conversations.
+          </p>
+          <a class="link-arrow" [href]="'mailto:' + email">
+            Write to me
+            <app-icon name="arrow" />
+          </a>
+        </article>
 
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">Portfolio</span>
-        <h2>Explore what I build.</h2>
-        <p>Browse selected professional and independent development projects.</p>
-        <a class="link-arrow" routerLink="/projects">Selected work <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </article>
+        <article class="info-card" data-inview data-y="24" data-delay="90">
+          <span class="micro">Professional network</span>
+          <h2>Connect on LinkedIn.</h2>
+          <p>Roles, dates and the full professional background.</p>
+          <a class="link-arrow" [href]="linkedin" target="_blank" rel="noopener noreferrer">
+            View LinkedIn
+            <app-icon name="external" />
+          </a>
+        </article>
+
+        <article class="info-card" data-inview data-y="24" data-delay="180">
+          <span class="micro">Code</span>
+          <h2>Explore my GitHub.</h2>
+          <p>Public repositories, code and selected projects.</p>
+          <a class="link-arrow" [href]="github" target="_blank" rel="noopener noreferrer">
+            Visit GitHub
+            <app-icon name="external" />
+          </a>
+        </article>
+
+        <article class="info-card" data-inview data-y="24" data-delay="270">
+          <span class="micro">Portfolio</span>
+          <h2>Explore what I build.</h2>
+          <p>Browse selected professional and independent development projects.</p>
+          <a class="link-arrow" routerLink="/projects">
+            Selected work
+            <app-icon name="arrow" />
+          </a>
+        </article>
+      </div>
     </div>
   </section>
-</main>
+</div>

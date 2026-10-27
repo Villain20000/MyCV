@@ -44,3 +44,6 @@ __screenshots__/
 Thumbs.db
 .agents/
 skills-lock.json
+
+# local preview screenshots
+/.screens

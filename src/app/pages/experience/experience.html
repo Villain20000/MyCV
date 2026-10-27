@@ -1,243 +1,74 @@
-<main id="main-content" tabindex="-1" class="page-shell page-stack">
-  <section class="page-hero page-fade">
-    <div class="page-eyebrow">02 / CAREER JOURNEY</div>
-    <h1>Real products.<br>Real challenges.</h1>
-    <p>
-      8+ years across HealthTech platforms, e-commerce, ERP and SaaS products — from frontend
-      architecture and interfaces to APIs and delivery.
-    </p>
+<div class="page">
+  <app-page-hero
+    eyebrow="02 / Career journey"
+    [lines]="['Real products.', 'Real challenges.']"
+    lead="Eight years across HealthTech platforms, e-commerce, ERP and SaaS products — from frontend architecture and interfaces to APIs and delivery."
+  >
+    <div class="page-hero__aside">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Open to new opportunities</span>
+      <a class="pill pill--light pill--sm" routerLink="/contact">
+        Hire me
+        <app-icon class="ico ico--sm" name="arrow" />
+      </a>
+    </div>
+  </app-page-hero>
+
+  <section class="sec--navy stats">
+    <span class="eyebrow eyebrow--light">By the numbers</span>
+    <h2 class="h2 h2--on-navy" style="margin-top: 1rem" data-lines="Eight years|shipping"></h2>
+    <app-stat-band [items]="stats" />
   </section>
 
-  <section class="glass-section">
-    <div class="feature-row page-fade">
-      <div class="micro">01 / HealthTech</div>
+  <section class="sec">
+    <div class="section-head">
       <div>
-        <h3>Metabio</h3>
-        <div class="job-meta">
-          <span>Full Stack Software Engineer</span>
-          <span>11/2024 – Present</span>
-          <span>Thessaloniki, Greece</span>
-        </div>
-        <p>
-          Healthcare and biobanking applications across e-MetaBio, e-MetaBank and e-MetaRes.
-        </p>
-        <ul class="job-bullets">
-          <li>
-            Led a redesign of Angular frontends for healthcare and biobanking applications,
-            modernizing clinical and operational workflows.
-          </li>
-          <li>
-            Independently owned the implementation of 15 end-to-end features across e-MetaBio,
-            e-MetaBank and e-MetaRes, spanning Angular UI development, Node.js services, REST API
-            integration and business logic.
-          </li>
-          <li>
-            Built patient-management and controlled-data workflows, including advanced search,
-            conditional filters, multiselect inputs, specimen access and data access.
-          </li>
-          <li>
-            Developed biospecimen logistics and traceability workflows covering specimen information
-            exchange, shipments and receipt confirmation.
-          </li>
-          <li>
-            Delivered GDPR-aligned eConsent and revocation functionality, JWT authentication and
-            role-based access control.
-          </li>
-          <li>
-            Developed Python-based integration scripts for 70 laboratory analysis types; worked with
-            HL7 v2, FHIR, ICD-11, AWS HealthLake and automated testing (Jest, Karma, Playwright).
-          </li>
-        </ul>
-        <div class="chip-list">
-          <span>Angular</span>
-          <span>Node.js</span>
-          <span>TypeScript</span>
-          <span>REST APIs</span>
-          <span>HealthTech</span>
-          <span>eConsent</span>
-          <span>Biobanking</span>
-          <span>HL7 v2 / FHIR</span>
-          <span>Python</span>
-        </div>
-        <a class="link-arrow" routerLink="/healthtech">
-          Explore HealthTech experience <span class="arrow-cue" aria-hidden="true">↗</span>
-        </a>
+        <span class="eyebrow">Timeline</span>
+        <h2 class="h2" data-lines="Roles, stacks|and outcomes"></h2>
       </div>
+      <p class="lead">
+        HealthTech, agency and independent work — the full record of what I built, owned and shipped.
+      </p>
     </div>
 
-    <div class="feature-row page-fade">
-      <div class="micro">02 / Full stack &amp; automation</div>
-      <div>
-        <h3>Independent / Freelance</h3>
-        <div class="job-meta">
-          <span>Full Stack Developer</span>
-          <span>11/2023 – 10/2024</span>
-          <span>Remote</span>
-        </div>
-        <p>Custom full-stack web applications and serverless automation workflows.</p>
-        <ul class="job-bullets">
-          <li>
-            Delivered custom web applications using Angular, Node.js, Vue.js, Laravel, REST APIs and
-            PostgreSQL/MySQL.
-          </li>
-          <li>
-            Developed 35+ n8n and serverless automation workflows for synchronization, integrations
-            and alerts.
-          </li>
-        </ul>
-        <div class="chip-list">
-          <span>Angular</span>
-          <span>Node.js</span>
-          <span>Vue.js</span>
-          <span>Laravel</span>
-          <span>REST APIs</span>
-          <span>PostgreSQL</span>
-          <span>MySQL</span>
-          <span>n8n</span>
-          <span>Automation</span>
-        </div>
-      </div>
+    <div class="timeline">
+      @for (item of roles; track item.company; let i = $index) {
+        <article class="tl-item" data-inview data-y="26" [attr.data-delay]="i * 60">
+          <div class="tl-side">
+            <span class="tl-index">{{ item.index }} / {{ item.discipline }}</span>
+            <h2 class="tl-company">{{ item.company }}</h2>
+            <div class="tl-meta">
+              <span>{{ item.role }}</span>
+              <span>{{ item.dates }}</span>
+              <span>{{ item.location }}</span>
+            </div>
+          </div>
+
+          <div class="tl-main">
+            <p>{{ item.summary }}</p>
+            <ul class="bullets">
+              @for (bullet of item.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+            <div class="chips">
+              @for (chip of item.chips; track chip) {
+                <span class="chip">{{ chip }}</span>
+              }
+            </div>
+          </div>
+        </article>
+      }
     </div>
 
-    <div class="feature-row page-fade">
-      <div class="micro">03 / E-commerce &amp; logistics</div>
-      <div>
-        <h3>Cactus Web</h3>
-        <div class="job-meta">
-          <span>Full Stack Developer</span>
-          <span>02/2023 – 10/2023</span>
-          <span>Thessaloniki, Greece</span>
-        </div>
-        <p>Custom e-commerce applications and logistics SaaS for commercial clients.</p>
-        <ul class="job-bullets">
-          <li>
-            Developed custom e-commerce applications with PHP and Angular, including product
-            catalogs, carts, checkout and order management.
-          </li>
-          <li>
-            Contributed to a custom marketplace and the Logistis shipping/logistics SaaS; integrated
-            Stripe and PayPal payment workflows.
-          </li>
-        </ul>
-        <div class="chip-list">
-          <span>PHP</span>
-          <span>Angular</span>
-          <span>E-commerce</span>
-          <span>Stripe &amp; PayPal</span>
-          <span>Logistics SaaS</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row page-fade">
-      <div class="micro">04 / SaaS &amp; ERP</div>
-      <div>
-        <h3>Softexpert</h3>
-        <div class="job-meta">
-          <span>Full Stack Developer (Angular / Node.js)</span>
-          <span>07/2018 – 01/2023</span>
-          <span>Greece</span>
-        </div>
-        <p>
-          MySiteNow, an Angular SaaS website builder, plus custom full-stack e-commerce and ERP
-          solutions.
-        </p>
-        <ul class="job-bullets">
-          <li>
-            Built custom full-stack Angular e-commerce applications, developing Node.js/Express.js
-            REST APIs and client-specific storefront features.
-          </li>
-          <li>
-            Contributed to MySiteNow, an Angular SaaS website builder, implementing website-editor
-            functionality and integration with its public-facing website.
-          </li>
-          <li>
-            Implemented ERP functionality for invoicing, inventory and customer management,
-            connecting Angular interfaces with backend APIs.
-          </li>
-          <li>
-            Delivered responsive, pixel-accurate Angular interfaces from Figma designs; implemented
-            requested changes and new features through Trello-managed tasks.
-          </li>
-          <li>
-            Contributed to a point-to-point limousine transfer booking application; wrote Python
-            scripts to automate e-commerce product imports.
-          </li>
-        </ul>
-        <div class="chip-list">
-          <span>Angular</span>
-          <span>Node.js</span>
-          <span>Express.js</span>
-          <span>PHP</span>
-          <span>SaaS</span>
-          <span>ERP</span>
-          <span>REST APIs</span>
-          <span>Python</span>
-          <span>Figma</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row page-fade">
-      <div class="micro">05 / E-commerce operations</div>
-      <div>
-        <h3>Vmondo Bachatouris</h3>
-        <div class="job-meta">
-          <span>E-commerce Management</span>
-          <span>03/2015 – 06/2018</span>
-          <span>Greece</span>
-        </div>
-        <p>Online store administration and e-commerce operations.</p>
-        <ul class="job-bullets">
-          <li>Managed day-to-day e-commerce operations and online store administration.</li>
-        </ul>
-        <div class="chip-list">
-          <span>E-commerce</span>
-          <span>Store Administration</span>
-          <span>Operations</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row page-fade">
-      <div class="micro">06 / Engineering projects</div>
-      <div>
-        <h3>Selected engineering projects</h3>
-        <div class="job-meta">
-          <span>Independent Full Stack Developer</span>
-          <span>Ongoing</span>
-          <span>Remote</span>
-        </div>
-        <p>
-          Independent product work spanning property-management SaaS, civic technology and legal
-          AI.
-        </p>
-        <ul class="job-bullets">
-          <li>
-            <strong>PolykatoikiaOS</strong>: Multi-role apartment management SaaS with recurring
-            billing, payment adapters, maintenance workflows, voting and RBAC. (Angular 22, NestJS
-            11, PostgreSQL 16, Prisma, Nx)
-          </li>
-          <li>
-            <strong>Direct Democracy</strong>: Municipal issue reporting with geospatial queries,
-            citizen participation, Redis caching, background processing, offline-first PWA and E2E
-            testing. (Angular 18, Express 5, PostGIS, Redis, BullMQ)
-          </li>
-          <li>
-            <strong>NomosAI</strong>: Legal-document RAG with citation-grounded search, document
-            processing, JWT authentication, subscriptions and Docker-based deployment. (Angular 17,
-            Node.js, PostgreSQL, pgvector, Ollama)
-          </li>
-        </ul>
-        <div class="chip-list">
-          <span>Angular</span>
-          <span>NestJS</span>
-          <span>PostgreSQL</span>
-          <span>Prisma</span>
-          <span>AI / RAG</span>
-        </div>
-        <a class="link-arrow" routerLink="/projects">See selected work <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </div>
+    <div class="section-foot">
+      <a class="link-arrow" routerLink="/healthtech">
+        HealthTech deep dive
+        <app-icon name="arrow" />
+      </a>
+      <a class="link-arrow" routerLink="/projects">
+        Selected work
+        <app-icon name="arrow" />
+      </a>
     </div>
   </section>
-</main>
+</div>

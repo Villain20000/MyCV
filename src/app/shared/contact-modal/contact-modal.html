@@ -1,0 +1,73 @@
+<div
+  class="modal"
+  [class.is-open]="modal.isOpen()"
+  [attr.aria-hidden]="modal.isOpen() ? null : 'true'"
+  [attr.inert]="modal.isOpen() ? null : ''"
+>
+  <div class="modal__bg" #modalBg (click)="close()" aria-hidden="true"></div>
+
+  <div
+    class="modal__panel"
+    #modalPanel
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="contact-modal-title"
+    data-lenis-prevent
+  >
+    <div class="modal__head">
+      <div>
+        <span class="eyebrow">Hire me</span>
+        <h2 class="modal__title" id="contact-modal-title">
+          <span class="clip-line"><span class="clip-in">Let's build</span></span>
+          <span class="clip-line"><span class="clip-in">something</span></span>
+        </h2>
+      </div>
+      <button class="icon-btn icon-btn--dark" type="button" aria-label="Close dialog" (click)="close()">
+        <app-icon name="x" data-hover="rotate" data-hover-trigger="button" />
+      </button>
+    </div>
+
+    <form class="modal__form" #modalForm novalidate [hidden]="sent()" (submit)="submit($event)">
+      <label class="field">
+        <span>Full name</span>
+        <input #nameInput name="name" type="text" autocomplete="name" placeholder="Alex Rivera" />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input name="email" type="email" autocomplete="email" placeholder="you@company.com" />
+      </label>
+      <label class="field">
+        <span>What are you hiring for?</span>
+        <textarea
+          name="message"
+          rows="3"
+          placeholder="A full-stack Angular role on a product team, starting in autumn…"
+        ></textarea>
+      </label>
+      <button class="pill pill--solid modal__submit" type="submit" [disabled]="sending()">
+        {{ sending() ? 'Preparing…' : 'Send message' }}
+        <app-icon class="ico ico--sm" name="arrow" />
+      </button>
+    </form>
+
+    @if (sent()) {
+      <div class="modal__success" role="status">
+        <div class="ok"><app-icon name="check" /></div>
+        <h3>Message ready</h3>
+        <p>
+          Thanks, {{ firstName() }} — your message is drafted and ready to send from your email app.
+          Prefer to write directly? Use
+          <a [href]="'mailto:' + email">{{ email }}</a
+          >.
+        </p>
+        <div class="modal__success-actions">
+          <a class="pill pill--solid" [href]="mailtoHref()">
+            Open email app
+            <app-icon class="ico ico--sm" name="arrow" />
+          </a>
+          <button class="pill pill--ghost" type="button" (click)="close()">Done</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

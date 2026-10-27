@@ -1,68 +1,106 @@
-<main id="main-content" tabindex="-1" class="page-shell page-stack">
-  <section class="page-hero page-fade">
-    <div class="page-eyebrow">03 / ABOUT</div>
-    <h1>Code with<br>purpose.</h1>
-    <p>
-      8+ years building practical digital experiences, from accessible frontends to backend systems and
-      custom applications across healthcare, SaaS, e-commerce and ERP.
-    </p>
-  </section>
+<div class="page">
+  <app-page-hero
+    eyebrow="03 / About"
+    [lines]="['Code with', 'purpose.']"
+    lead="Eight years building practical digital experiences — from accessible frontends to backend systems and custom applications across healthcare, SaaS, e-commerce and ERP."
+  >
+    <div class="page-hero__aside">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Available now · replies within 48 hours</span>
+      <a class="pill pill--light pill--sm" routerLink="/contact">
+        Hire me
+        <app-icon class="ico ico--sm" name="arrow" />
+      </a>
+    </div>
+  </app-page-hero>
 
-  <section class="glass-section">
-    <h2 class="section-heading page-fade">What I bring.</h2>
-    <div class="glass-grid">
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">01 / Frontend</span>
-        <h3>Interfaces that feel natural.</h3>
-        <p>
-          Angular-based experiences with a focus on product usability, maintainable components and
-          responsive design.
-        </p>
-        <div class="chip-list">
-          <span>Angular</span>
-          <span>TypeScript</span>
-          <span>UI/UX</span>
-        </div>
-      </article>
+  <section class="sec">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">What I bring</span>
+        <h2 class="h2" data-lines="Four things|I care about"></h2>
+      </div>
+      <p class="lead">
+        The combination I bring to a product team: frontend craft, backend range, domain curiosity and
+        an obsession with keeping things understandable.
+      </p>
+    </div>
 
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">02 / Full stack</span>
-        <h3>Functionality beyond the UI.</h3>
-        <p>
-          Connecting frontend experiences with backend services, business logic and data-driven
-          applications.
-        </p>
-        <div class="chip-list">
-          <span>PHP</span>
-          <span>Node.js</span>
-          <span>Express</span>
-          <span>Prisma</span>
-        </div>
-      </article>
-
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">03 / Business contexts</span>
-        <h3>From storefronts to healthcare.</h3>
-        <p>
-          Experience across HealthTech &amp; biobanking platforms, SaaS website builders, ERP systems,
-          and custom e-commerce solutions.
-        </p>
-      </article>
-
-      <article class="glass-card page-fade" appSpotlight>
-        <span class="micro">04 / Engineering approach</span>
-        <h3>Build, test, improve.</h3>
-        <p>
-          Keep solutions understandable and iterate with performance, accessibility and long-term
-          maintainability in mind.
-        </p>
-      </article>
+    <div class="about-grid">
+      @for (card of cards; track card.title; let i = $index) {
+        <article class="about-card" data-inview data-y="30" [attr.data-delay]="i * 90">
+          <span class="micro">{{ card.index }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.body }}</p>
+          <div class="chips" style="margin-top: auto">
+            @for (chip of card.chips; track chip) {
+              <span class="chip">{{ chip }}</span>
+            }
+          </div>
+        </article>
+      }
     </div>
   </section>
 
-  <section class="cta-panel page-fade">
-    <h2>Have something<br>to build?</h2>
-    <p>Discover how my experience could fit your project.</p>
-    <a routerLink="/contact" appMagnetic>Contact me <span class="arrow-cue" aria-hidden="true">↗</span></a>
+  <section class="sec--surface">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Toolkit</span>
+        <h2 class="h2" data-lines="The stack,|in practice"></h2>
+      </div>
+      <p class="lead">
+        Tools I reach for when a product needs to ship and keep shipping — not a badge collection.
+      </p>
+    </div>
+
+    <div class="skill-grid">
+      @for (group of skills; track group.title; let i = $index) {
+        <div class="skill-card" data-inview data-y="20" [attr.data-delay]="i * 70">
+          <h3>{{ group.title }}</h3>
+          <div class="chips">
+            @for (item of group.items; track item) {
+              <span class="chip">{{ item }}</span>
+            }
+          </div>
+        </div>
+      }
+    </div>
   </section>
-</main>
+
+  <section class="sec">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Career snapshot</span>
+        <h2 class="h2" data-lines="Recent|chapters"></h2>
+      </div>
+      <p class="lead">A short version of the timeline — the full record lives on the experience page.</p>
+    </div>
+
+    <ul class="work-list">
+      @for (item of snapshot; track item.company; let i = $index) {
+        <li data-inview data-y="20" [attr.data-delay]="i * 80">
+          <a class="work-row" routerLink="/experience">
+            <span class="work-idx">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span>
+            <div class="work-main">
+              <div class="work-name">{{ item.company }}</div>
+              <p class="work-desc">{{ item.role }} — {{ item.line }}</p>
+            </div>
+            <span class="work-circ"><app-icon class="ico" name="arrow" data-hover="arrowLong" /></span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <div class="section-foot">
+      <a class="link-arrow" routerLink="/experience">
+        Full experience
+        <app-icon name="arrow" />
+      </a>
+      <a class="link-arrow" routerLink="/healthtech">
+        HealthTech deep dive
+        <app-icon name="arrow" />
+      </a>
+    </div>
+  </section>
+
+  
+</div>

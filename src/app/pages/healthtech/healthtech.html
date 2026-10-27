@@ -1,200 +1,131 @@
-<main id="main-content" tabindex="-1" class="healthtech-page">
-  <section class="hero">
-    <div class="container">
-      <div class="eyebrow">Selected experience / 01 — Health technology</div>
-      <h1>Engineering<br><em class="shimmer-text">better care.</em></h1>
+<div class="page">
+  <app-page-hero
+    eyebrow="Selected experience / 01 — Health technology"
+    [lines]="['Engineering', 'better care.']"
+    lead="Building thoughtful software for complex healthcare and biobanking workflows — where usability, traceability and careful handling of data matter."
+    note="Photography is illustrative stock imagery, not screenshots of employer systems."
+  >
+    <div class="page-hero__actions">
+      <a class="pill pill--light pill--sm" href="#expertise">
+        Explore experience
+        <app-icon class="ico ico--sm" name="down" />
+      </a>
+      <a class="pill pill--outline pill--sm" routerLink="/experience">
+        Career timeline
+        <app-icon class="ico ico--sm" name="arrow" />
+      </a>
+    </div>
+  </app-page-hero>
+
+  <section class="sec--navy stats">
+    <span class="eyebrow eyebrow--light">By the numbers</span>
+    <h2 class="h2 h2--on-navy" style="margin-top: 1rem" data-lines="Care, at|scale"></h2>
+    <app-stat-band [items]="stats" />
+  </section>
+
+  <section class="sec">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">01 / Context</span>
+        <h2 class="h2" data-lines="Complex systems.|Human focus."></h2>
+      </div>
       <p class="lead">
-        Building thoughtful software for complex healthcare and biobanking workflows — where
-        usability, traceability and careful handling of data matter.
+        Professional software-development experience in HealthTech and biobanking, presented without
+        disclosing private patient data or proprietary interfaces.
       </p>
-      <div class="actions">
-        <a class="btn" appMagnetic href="#expertise">Explore experience ↓</a>
-        <a class="btn secondary" appMagnetic routerLink="/" fragment="experience">Career timeline <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </div>
-      <p class="note">Photography is illustrative stock imagery, not screenshots of employer systems.</p>
     </div>
-  </section>
 
-  <section class="section" id="overview">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow">01 / Context</div>
-          <h2>Complex systems.<br>Human focus.</h2>
-        </div>
-        <p>
-          Professional software-development experience in HealthTech and biobanking, presented
-          without disclosing private patient data or proprietary interfaces.
+    <div class="split-cards" style="margin-top: 2.5rem">
+      <article class="info-card" data-inview data-y="28">
+        <span class="eyebrow">Experience / Metabio (11/2024 – present · Thessaloniki)</span>
+        <h3 style="margin-top: 1rem">Healthcare workflows, engineered for clarity.</h3>
+        <p style="font-size: 0.875rem; line-height: 1.7; color: var(--ink-soft)">
+          Redesign of Angular frontends for healthcare and biobanking applications across e-MetaBio,
+          e-MetaBank and e-MetaRes. Independently owned 15 end-to-end features spanning patient
+          management, GDPR-aligned eConsent, biospecimen logistics and traceability, advanced search,
+          and Python integration scripts for 70 laboratory analysis types (HL7 v2, FHIR, ICD-11, AWS
+          HealthLake).
         </p>
-      </div>
-      <div class="overview">
-        <article class="glass reveal" appSpotlight>
-          <div class="eyebrow">Experience / Metabio (11/2024 – Present · Thessaloniki, Greece)</div>
-          <h3>Healthcare workflows, engineered for clarity.</h3>
-          <p>
-            Redesign of Angular frontends for healthcare and biobanking applications across
-            e-MetaBio, e-MetaBank and e-MetaRes. Independently owned 15 end-to-end features spanning
-            patient management, GDPR-aligned eConsent, biospecimen logistics and traceability,
-            advanced search, and Python integration scripts for 70 laboratory analysis types
-            (HL7 v2, FHIR, ICD-11, AWS HealthLake).
-          </p>
-          <div class="pill-list">
-            <span>Angular</span>
-            <span>Node.js</span>
-            <span>eConsent</span>
-            <span>Biobanking</span>
-            <span>Traceability</span>
-            <span>HL7 v2 / FHIR</span>
-            <span>Python</span>
-          </div>
-        </article>
-        <aside class="glass reveal" appSpotlight>
-          <div class="eyebrow">Engineering priorities</div>
-          <p class="stat">Clarity.<br>Control.<br>Care.</p>
-          <p class="muted">Thoughtful interfaces, predictable workflows and careful attention to data context.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="expertise">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow">02 / Areas of work</div>
-          <h2>What I build.</h2>
+        <div class="chips" style="margin-top: 1.25rem">
+          @for (chip of ['Angular', 'Node.js', 'eConsent', 'Biobanking', 'Traceability', 'HL7 v2 / FHIR', 'Python']; track chip) {
+            <span class="chip">{{ chip }}</span>
+          }
         </div>
-        <p>
-          Representative areas of development based on professional workflow experience, not a
-          claim of sole ownership of entire products.
+      </article>
+
+      <article class="info-card" data-inview data-y="28" data-delay="120">
+        <span class="eyebrow">Engineering priorities</span>
+        <p class="page-title" style="font-size: 2.5rem; margin-top: 1rem">Clarity.<br />Control.<br />Care.</p>
+        <p style="font-size: 0.875rem; line-height: 1.7; color: var(--ink-soft); margin-top: 1rem">
+          Thoughtful interfaces, predictable workflows and careful attention to data context — the
+          three things every healthcare screen has to earn.
         </p>
-      </div>
-      <div class="features">
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">01 / PATIENT WORKFLOWS</div>
-          <h3>Patient management</h3>
-          <p>Interfaces and application logic for navigating patient-related records and organization-specific workflows.</p>
-        </article>
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">02 / DIGITAL CONSENT</div>
-          <h3>eConsent</h3>
-          <p>Conditional fields and context-sensitive behavior informed by institutional configuration.</p>
-        </article>
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">03 / DATA DISCOVERY</div>
-          <h3>Advanced search</h3>
-          <p>Search and filtering experiences for complex datasets, including dynamic filter controls.</p>
-        </article>
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">04 / GOVERNED ACCESS</div>
-          <h3>Specimen access</h3>
-          <p>Interfaces supporting workflows for requesting and managing access to biobanking resources.</p>
-        </article>
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">05 / DATA WORKFLOWS</div>
-          <h3>Data access</h3>
-          <p>UI workflows and conditional logic for interacting with research-oriented data systems.</p>
-        </article>
-        <article class="glass feature reveal" appSpotlight>
-          <div class="number">06 / PRODUCT QUALITY</div>
-          <h3>Usability &amp; reliability</h3>
-          <p>Making intricate workflows easier to follow with clear states, feedback and consistent interaction patterns.</p>
-        </article>
-      </div>
+      </article>
     </div>
   </section>
 
-  <section class="section" id="gallery">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow">03 / Visual narrative</div>
-          <h2>Technology<br>meets humanity.</h2>
-        </div>
-        <p>Editorial stock photography illustrating healthcare environments, research and digital medicine.</p>
+  <section class="sec--surface" id="expertise">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">02 / Areas of work</span>
+        <h2 class="h2" data-lines="What I|build"></h2>
       </div>
-      <div class="photo-grid">
-        <figure class="glass reveal" appSpotlight>
-          <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"
-            alt="Medical professional working with healthcare technology"
-            loading="lazy"
-            decoding="async"
-          >
-          <figcaption>Digital health / illustrative stock photo</figcaption>
+      <p class="lead">
+        Representative areas of development based on professional workflow experience, not a claim of
+        sole ownership of entire products.
+      </p>
+    </div>
+
+    <div class="feature-grid feature-grid--3">
+      @for (feature of features; track feature.title; let i = $index) {
+        <article class="feature-card" data-inview data-y="26" [attr.data-delay]="i * 80">
+          <span class="micro">{{ feature.index }}</span>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.body }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">03 / Visual narrative</span>
+        <h2 class="h2" data-lines="Technology|meets humanity"></h2>
+      </div>
+      <p class="lead">Editorial stock photography illustrating healthcare environments, research and digital medicine.</p>
+    </div>
+
+    <div class="gallery">
+      @for (item of gallery; track item.src; let i = $index) {
+        <figure data-inview data-y="30" [attr.data-delay]="i * 100">
+          <img [src]="item.src" [alt]="item.alt" loading="lazy" />
+          <figcaption>{{ item.caption }}</figcaption>
         </figure>
-        <figure class="glass reveal" appSpotlight>
-          <img
-            src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80"
-            alt="Scientific laboratory equipment and research setting"
-            loading="lazy"
-            decoding="async"
-          >
-          <figcaption>Research environments / illustrative stock photo</figcaption>
-        </figure>
-        <figure class="glass reveal" appSpotlight>
-          <img
-            src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=900&q=80"
-            alt="Healthcare and medical research imagery"
-            loading="lazy"
-            decoding="async"
-          >
-          <figcaption>Healthcare innovation / illustrative stock photo</figcaption>
-        </figure>
+      }
+    </div>
+    <p class="note">Stock photos are illustrative · No patient data or employer interfaces are shown.</p>
+  </section>
+
+  <section class="sec--surface">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">04 / Approach</span>
+        <h2 class="h2" data-lines="How I|think"></h2>
       </div>
+      <p class="lead">From domain complexity to clear, maintainable interfaces.</p>
+    </div>
+
+    <div class="feature-grid">
+      @for (step of approach; track step.step; let i = $index) {
+        <article class="feature-card" data-inview data-y="26" [attr.data-delay]="i * 90">
+          <span class="micro">{{ step.step }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.body }}</p>
+        </article>
+      }
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow">04 / Approach</div>
-          <h2>How I think.</h2>
-        </div>
-        <p>From domain complexity to clear, maintainable interfaces.</p>
-      </div>
-      <div class="workflow">
-        <article class="glass step reveal" appSpotlight>
-          <strong>01 / UNDERSTAND</strong>
-          <h3>Map the workflow</h3>
-          <p>Understand users, dependencies and domain constraints.</p>
-        </article>
-        <article class="glass step reveal" appSpotlight>
-          <strong>02 / MODEL</strong>
-          <h3>Design the logic</h3>
-          <p>Translate conditional rules into predictable states.</p>
-        </article>
-        <article class="glass step reveal" appSpotlight>
-          <strong>03 / BUILD</strong>
-          <h3>Implement with care</h3>
-          <p>Create clear interfaces and robust interactions.</p>
-        </article>
-        <article class="glass step reveal" appSpotlight>
-          <strong>04 / REFINE</strong>
-          <h3>Validate the experience</h3>
-          <p>Check usability, edge cases and consistency.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="end">
-    <div class="container">
-      <div class="eyebrow">Built for meaningful impact</div>
-      <h2>Software that serves people.</h2>
-      <p class="muted">Explore more full-stack development work and selected projects.</p>
-      <div class="actions end-actions">
-        <a class="btn" appMagnetic routerLink="/projects">View all projects <span class="arrow-cue" aria-hidden="true">↗</span></a>
-        <a class="btn secondary" appMagnetic routerLink="/contact">Get in touch <span class="arrow-cue" aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-  </section>
-
-  <div class="healthtech-meta">
-    <div class="container meta-inner">
-      <span>Developer Portfolio / HealthTech experience</span>
-      <span>Stock photos are illustrative · No patient data shown</span>
-    </div>
-  </div>
-</main>
+  
+</div>
