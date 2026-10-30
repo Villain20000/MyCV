@@ -182,7 +182,7 @@ export class Home {
       index: '03',
       body: 'Shipped the MySiteNow website builder, ERP modules and pixel-accurate Angular interfaces from Figma, plus Node.js and Express APIs.',
       company: 'Softexpert',
-      meta: 'Full Stack Developer · 07/2018 – 01/2023',
+      meta: 'Full Stack Developer · 07/2021 – 01/2023',
     },
   ];
 

@@ -79,7 +79,7 @@ export class Experience {
       discipline: 'SaaS & ERP',
       company: 'Softexpert',
       role: 'Full Stack Developer (Angular / Node.js)',
-      dates: '07/2018 – 01/2023',
+      dates: '07/2021 – 01/2023',
       location: 'Greece',
       summary: 'MySiteNow, an Angular SaaS website builder, plus custom e-commerce and ERP solutions.',
       bullets: [

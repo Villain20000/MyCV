@@ -65,7 +65,7 @@ export class About {
     },
     {
       company: 'Softexpert',
-      role: 'Full Stack Developer · 07/2018 – 01/2023',
+      role: 'Full Stack Developer · 07/2021 – 01/2023',
       line: 'MySiteNow website builder, ERP modules and pixel-accurate Angular interfaces.',
     },
   ];

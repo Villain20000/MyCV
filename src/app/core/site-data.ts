@@ -23,7 +23,7 @@ export interface StatItem {
 }
 
 export const STATS: readonly StatItem[] = [
-  { value: '8+', label: 'Years building software' },
+  { value: '5+', label: 'Years building software' },
   { value: '15', label: 'Features owned end-to-end' },
   { value: '70', label: 'Lab analysis integrations' },
   { value: '4', label: 'Industries shipped in' },
