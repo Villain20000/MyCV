@@ -103,4 +103,39 @@
   </section>
 
   
+
+  <section class="sec--surface">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Education &amp; Credentials</span>
+        <h2 class="h2" data-lines="Academic|foundation"></h2>
+      </div>
+      <p class="lead">Undergraduate computer science studies and professional engineering programs.</p>
+    </div>
+
+    <ul class="work-list">
+      @for (item of education; track item.institution; let i = $index) {
+        <li data-inview data-y="20" [attr.data-delay]="i * 80">
+          <div class="work-row">
+            <span class="work-idx">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span>
+            <div class="work-main">
+              <div class="work-name">{{ item.institution }}</div>
+              <p class="work-desc">{{ item.degree }} · {{ item.dates }} — {{ item.details }}</p>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <div class="section-foot">
+      <a class="link-arrow" routerLink="/experience">
+        Full experience
+        <app-icon name="arrow" />
+      </a>
+      <a class="link-arrow" routerLink="/contact">
+        Get in touch
+        <app-icon name="arrow" />
+      </a>
+    </div>
+  </section>
 </div>

@@ -17,6 +17,17 @@ interface Role {
   chips: readonly string[];
 }
 
+interface EducationRole {
+  index: string;
+  discipline: string;
+  institution: string;
+  degree: string;
+  dates: string;
+  location: string;
+  summary: string;
+  chips: readonly string[];
+}
+
 @Component({
   selector: 'app-experience',
   imports: [RouterLink, Icon, PageHero, StatBand],
@@ -116,6 +127,31 @@ export class Experience {
         'NomosAI: legal-document RAG with citation-grounded search, subscriptions and Docker deployment (Angular 17, Node.js, PostgreSQL, pgvector, Ollama).',
       ],
       chips: ['Angular', 'NestJS', 'PostgreSQL', 'Prisma', 'AI / RAG'],
+    },
+  ];
+
+  protected readonly education: readonly EducationRole[] = [
+    {
+      index: '01',
+      discipline: 'Degree (In progress)',
+      institution: 'University of East London',
+      degree: 'Bachelor of Computer Science',
+      dates: '2024 – Present (In progress)',
+      location: 'London, United Kingdom',
+      summary:
+        'Currently pursuing a Bachelor of Science in Computer Science (started 2024), covering core computing foundations, software engineering, systems architecture, data structures and algorithms.',
+      chips: ['Computer Science', 'Software Engineering', 'Algorithms', 'System Design'],
+    },
+    {
+      index: '02',
+      discipline: 'Professional bootcamp',
+      institution: 'Pfizer Center for Digital Innovation (CDI)',
+      degree: 'Full-Stack Operations Bootcamp',
+      dates: 'Thessaloniki, Greece',
+      location: 'Thessaloniki, Greece',
+      summary:
+        'Intensive full-stack operations program focusing on modern software engineering, agile practices and enterprise cloud development.',
+      chips: ['Full Stack', 'Software Operations', 'Enterprise Delivery'],
     },
   ];
 }

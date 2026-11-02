@@ -10,6 +10,13 @@ interface AboutCard {
   chips: readonly string[];
 }
 
+interface EducationItem {
+  institution: string;
+  degree: string;
+  dates: string;
+  details: string;
+}
+
 @Component({
   selector: 'app-about',
   imports: [RouterLink, Icon, PageHero],
@@ -67,6 +74,21 @@ export class About {
       company: 'Softexpert',
       role: 'Full Stack Developer · 07/2021 – 01/2023',
       line: 'MySiteNow website builder, ERP modules and pixel-accurate Angular interfaces.',
+    },
+  ];
+
+  protected readonly education: readonly EducationItem[] = [
+    {
+      institution: 'University of East London',
+      degree: 'Bachelor of Computer Science',
+      dates: '2024 – Present (In progress)',
+      details: 'Undergraduate Computer Science studies covering software engineering, algorithms and computing systems.',
+    },
+    {
+      institution: 'Pfizer Center for Digital Innovation (CDI)',
+      degree: 'Full-Stack Operations Bootcamp',
+      dates: 'Thessaloniki, Greece',
+      details: 'Intensive full-stack operations program focusing on agile delivery and enterprise software practices.',
     },
   ];
 }

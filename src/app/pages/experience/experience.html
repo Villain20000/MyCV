@@ -59,6 +59,43 @@
         </article>
       }
     </div>
+  </section>
+
+  <section class="sec sec--surface">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Education &amp; Credentials</span>
+        <h2 class="h2" data-lines="Academic|background"></h2>
+      </div>
+      <p class="lead">
+        Foundational computer science education and professional software engineering training.
+      </p>
+    </div>
+
+    <div class="timeline">
+      @for (item of education; track item.institution; let i = $index) {
+        <article class="tl-item" data-inview data-y="26" [attr.data-delay]="i * 60">
+          <div class="tl-side">
+            <span class="tl-index">{{ item.index }} / {{ item.discipline }}</span>
+            <h2 class="tl-company">{{ item.institution }}</h2>
+            <div class="tl-meta">
+              <span>{{ item.degree }}</span>
+              <span>{{ item.dates }}</span>
+              <span>{{ item.location }}</span>
+            </div>
+          </div>
+
+          <div class="tl-main">
+            <p>{{ item.summary }}</p>
+            <div class="chips">
+              @for (chip of item.chips; track chip) {
+                <span class="chip">{{ chip }}</span>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
 
     <div class="section-foot">
       <a class="link-arrow" routerLink="/healthtech">
